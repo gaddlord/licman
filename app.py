@@ -145,7 +145,32 @@ def new_expense():
         TripName='',
         TripNumberOfPassengers=0,
         TrainingName='',
-        TrainingNumberOfTrainees=0
+        TrainingNumberOfTrainees=0,
+        WithBreakdown=False,
+        ApprovedJan=0.0,
+        ApprovedFeb=0.0,
+        ApprovedMar=0.0,
+        ApprovedApr=0.0,
+        ApprovedMay=0.0,
+        ApprovedJun=0.0,
+        ApprovedJul=0.0,
+        ApprovedAug=0.0,
+        ApprovedSep=0.0,
+        ApprovedOct=0.0,
+        ApprovedNov=0.0,
+        ApprovedDec=0.0,
+        ActualJan=0.0,
+        ActualFeb=0.0,
+        ActualMar=0.0,
+        ActualApr=0.0,
+        ActualMay=0.0,
+        ActualJun=0.0,
+        ActualJul=0.0,
+        ActualAug=0.0,
+        ActualSep=0.0,
+        ActualOct=0.0,
+        ActualNov=0.0,
+        ActualDec=0.0
     )
     
     # Handle form submission
@@ -161,13 +186,92 @@ def new_expense():
         expense.LicenseModelId = request.form.get('license_model')
         expense.CostPerUnit = float(request.form.get('cost_per_unit') or 0)
         expense.NumberOfUnits = int(request.form.get('number_of_units') or 0)
-        expense.ApprovedValue = float(request.form.get('approved_value') or 0)
-        expense.ContractedValue = float(request.form.get('contracted_value') or 0)
+        
+        # Basic fields
         expense.Sunset = 'sunset' in request.form
         expense.SunsetPlan = request.form.get('sunset_plan')
         expense.Notes = request.form.get('notes')
         expense.ProcurementUrl = request.form.get('procurement_url')
         expense.EmployeeName = request.form.get('employee_name')
+        
+        # Handle WithBreakdown field and monthly values
+        expense.WithBreakdown = True if request.form.get('with_breakdown') else False
+        
+        if expense.WithBreakdown:
+            # Handle monthly approved values
+            expense.ApprovedJan = float(request.form.get('approved_jan') or 0)
+            expense.ApprovedFeb = float(request.form.get('approved_feb') or 0)
+            expense.ApprovedMar = float(request.form.get('approved_mar') or 0)
+            expense.ApprovedApr = float(request.form.get('approved_apr') or 0)
+            expense.ApprovedMay = float(request.form.get('approved_may') or 0)
+            expense.ApprovedJun = float(request.form.get('approved_jun') or 0)
+            expense.ApprovedJul = float(request.form.get('approved_jul') or 0)
+            expense.ApprovedAug = float(request.form.get('approved_aug') or 0)
+            expense.ApprovedSep = float(request.form.get('approved_sep') or 0)
+            expense.ApprovedOct = float(request.form.get('approved_oct') or 0)
+            expense.ApprovedNov = float(request.form.get('approved_nov') or 0)
+            expense.ApprovedDec = float(request.form.get('approved_dec') or 0)
+            
+            # Handle monthly actual values
+            expense.ActualJan = float(request.form.get('actual_jan') or 0)
+            expense.ActualFeb = float(request.form.get('actual_feb') or 0)
+            expense.ActualMar = float(request.form.get('actual_mar') or 0)
+            expense.ActualApr = float(request.form.get('actual_apr') or 0)
+            expense.ActualMay = float(request.form.get('actual_may') or 0)
+            expense.ActualJun = float(request.form.get('actual_jun') or 0)
+            expense.ActualJul = float(request.form.get('actual_jul') or 0)
+            expense.ActualAug = float(request.form.get('actual_aug') or 0)
+            expense.ActualSep = float(request.form.get('actual_sep') or 0)
+            expense.ActualOct = float(request.form.get('actual_oct') or 0)
+            expense.ActualNov = float(request.form.get('actual_nov') or 0)
+            expense.ActualDec = float(request.form.get('actual_dec') or 0)
+            
+            # Calculate total approved value from monthly values
+            expense.ApprovedValue = (
+                expense.ApprovedJan + expense.ApprovedFeb + expense.ApprovedMar + 
+                expense.ApprovedApr + expense.ApprovedMay + expense.ApprovedJun + 
+                expense.ApprovedJul + expense.ApprovedAug + expense.ApprovedSep + 
+                expense.ApprovedOct + expense.ApprovedNov + expense.ApprovedDec
+            )
+            
+            # Calculate total contracted value from monthly actual values
+            expense.ContractedValue = (
+                expense.ActualJan + expense.ActualFeb + expense.ActualMar + 
+                expense.ActualApr + expense.ActualMay + expense.ActualJun + 
+                expense.ActualJul + expense.ActualAug + expense.ActualSep + 
+                expense.ActualOct + expense.ActualNov + expense.ActualDec
+            )
+        else:
+            # If not using monthly breakdown, get values directly from form
+            expense.ApprovedValue = float(request.form.get('approved_value') or 0)
+            expense.ContractedValue = float(request.form.get('contracted_value') or 0)
+            
+            # Clear monthly values
+            expense.ApprovedJan = 0
+            expense.ApprovedFeb = 0
+            expense.ApprovedMar = 0
+            expense.ApprovedApr = 0
+            expense.ApprovedMay = 0
+            expense.ApprovedJun = 0
+            expense.ApprovedJul = 0
+            expense.ApprovedAug = 0
+            expense.ApprovedSep = 0
+            expense.ApprovedOct = 0
+            expense.ApprovedNov = 0
+            expense.ApprovedDec = 0
+            
+            expense.ActualJan = 0
+            expense.ActualFeb = 0
+            expense.ActualMar = 0
+            expense.ActualApr = 0
+            expense.ActualMay = 0
+            expense.ActualJun = 0
+            expense.ActualJul = 0
+            expense.ActualAug = 0
+            expense.ActualSep = 0
+            expense.ActualOct = 0
+            expense.ActualNov = 0
+            expense.ActualDec = 0
         
         # Handle optional numeric fields
         if request.form.get('employee_annual_salary'):
@@ -243,13 +347,92 @@ def edit_expense(expense_id):
         expense.LicenseModelId = request.form.get('license_model')
         expense.CostPerUnit = float(request.form.get('cost_per_unit') or 0)
         expense.NumberOfUnits = int(request.form.get('number_of_units') or 0)
-        expense.ApprovedValue = float(request.form.get('approved_value') or 0)
-        expense.ContractedValue = float(request.form.get('contracted_value') or 0)
+        
+        # Basic fields
         expense.Sunset = 'sunset' in request.form
         expense.SunsetPlan = request.form.get('sunset_plan')
         expense.Notes = request.form.get('notes')
         expense.ProcurementUrl = request.form.get('procurement_url')
         expense.EmployeeName = request.form.get('employee_name')
+        
+        # Handle WithBreakdown field and monthly values
+        expense.WithBreakdown = True if request.form.get('with_breakdown') else False
+        
+        if expense.WithBreakdown:
+            # Handle monthly approved values
+            expense.ApprovedJan = float(request.form.get('approved_jan') or 0)
+            expense.ApprovedFeb = float(request.form.get('approved_feb') or 0)
+            expense.ApprovedMar = float(request.form.get('approved_mar') or 0)
+            expense.ApprovedApr = float(request.form.get('approved_apr') or 0)
+            expense.ApprovedMay = float(request.form.get('approved_may') or 0)
+            expense.ApprovedJun = float(request.form.get('approved_jun') or 0)
+            expense.ApprovedJul = float(request.form.get('approved_jul') or 0)
+            expense.ApprovedAug = float(request.form.get('approved_aug') or 0)
+            expense.ApprovedSep = float(request.form.get('approved_sep') or 0)
+            expense.ApprovedOct = float(request.form.get('approved_oct') or 0)
+            expense.ApprovedNov = float(request.form.get('approved_nov') or 0)
+            expense.ApprovedDec = float(request.form.get('approved_dec') or 0)
+            
+            # Handle monthly actual values
+            expense.ActualJan = float(request.form.get('actual_jan') or 0)
+            expense.ActualFeb = float(request.form.get('actual_feb') or 0)
+            expense.ActualMar = float(request.form.get('actual_mar') or 0)
+            expense.ActualApr = float(request.form.get('actual_apr') or 0)
+            expense.ActualMay = float(request.form.get('actual_may') or 0)
+            expense.ActualJun = float(request.form.get('actual_jun') or 0)
+            expense.ActualJul = float(request.form.get('actual_jul') or 0)
+            expense.ActualAug = float(request.form.get('actual_aug') or 0)
+            expense.ActualSep = float(request.form.get('actual_sep') or 0)
+            expense.ActualOct = float(request.form.get('actual_oct') or 0)
+            expense.ActualNov = float(request.form.get('actual_nov') or 0)
+            expense.ActualDec = float(request.form.get('actual_dec') or 0)
+            
+            # Calculate total approved value from monthly values
+            expense.ApprovedValue = (
+                expense.ApprovedJan + expense.ApprovedFeb + expense.ApprovedMar + 
+                expense.ApprovedApr + expense.ApprovedMay + expense.ApprovedJun + 
+                expense.ApprovedJul + expense.ApprovedAug + expense.ApprovedSep + 
+                expense.ApprovedOct + expense.ApprovedNov + expense.ApprovedDec
+            )
+            
+            # Calculate total contracted value from monthly actual values
+            expense.ContractedValue = (
+                expense.ActualJan + expense.ActualFeb + expense.ActualMar + 
+                expense.ActualApr + expense.ActualMay + expense.ActualJun + 
+                expense.ActualJul + expense.ActualAug + expense.ActualSep + 
+                expense.ActualOct + expense.ActualNov + expense.ActualDec
+            )
+        else:
+            # If not using monthly breakdown, get values directly from form
+            expense.ApprovedValue = float(request.form.get('approved_value') or 0)
+            expense.ContractedValue = float(request.form.get('contracted_value') or 0)
+            
+            # Clear monthly values
+            expense.ApprovedJan = 0
+            expense.ApprovedFeb = 0
+            expense.ApprovedMar = 0
+            expense.ApprovedApr = 0
+            expense.ApprovedMay = 0
+            expense.ApprovedJun = 0
+            expense.ApprovedJul = 0
+            expense.ApprovedAug = 0
+            expense.ApprovedSep = 0
+            expense.ApprovedOct = 0
+            expense.ApprovedNov = 0
+            expense.ApprovedDec = 0
+            
+            expense.ActualJan = 0
+            expense.ActualFeb = 0
+            expense.ActualMar = 0
+            expense.ActualApr = 0
+            expense.ActualMay = 0
+            expense.ActualJun = 0
+            expense.ActualJul = 0
+            expense.ActualAug = 0
+            expense.ActualSep = 0
+            expense.ActualOct = 0
+            expense.ActualNov = 0
+            expense.ActualDec = 0
         
         # Handle optional numeric fields
         if request.form.get('employee_annual_salary'):

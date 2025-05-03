@@ -116,19 +116,34 @@
                         </div>
                     </div>
                     
+                    <!-- Monthly Breakdown Checkbox -->
                     <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label for="approved_value" class="form-label">Approved Budget</label>
-                            <div class="input-group">
-                                <span class="input-group-text">$</span>
-                                <input type="number" class="form-control" id="approved_value" name="approved_value" step="0.01" min="0" required>
+                        <div class="col-md-12">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="with_breakdown" name="with_breakdown">
+                                <label class="form-check-label" for="with_breakdown">
+                                    With Monthly Breakdown
+                                </label>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <label for="contracted_value" class="form-label">Contracted Value</label>
-                            <div class="input-group">
-                                <span class="input-group-text">$</span>
-                                <input type="number" class="form-control" id="contracted_value" name="contracted_value" step="0.01" min="0">
+                    </div>
+                    
+                    <!-- Standard Budget Fields (hidden when monthly breakdown is enabled) -->
+                    <div id="standard-budget-section">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="approved_value" class="form-label">Approved Budget</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="approved_value" name="approved_value" step="0.01" min="0" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="contracted_value" class="form-label">Contracted Value</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="contracted_value" name="contracted_value" step="0.01" min="0">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -159,6 +174,194 @@
                         <div class="col-md-12">
                             <label for="procurement_url" class="form-label">Procurement URL <span class="text-muted">(optional)</span></label>
                             <input type="url" class="form-control" id="procurement_url" name="procurement_url">
+                        </div>
+                    </div>
+                    
+                    <div id="monthly-breakdown-section" class="d-none">
+                        <h4 class="mb-3 mt-4">Monthly Breakdown</h4>
+                        
+                        <h5 class="mb-2">Approved Monthly Values</h5>
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label for="approved_jan" class="form-label">January</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="approved_jan" name="approved_jan" step="0.01" min="0">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="approved_feb" class="form-label">February</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="approved_feb" name="approved_feb" step="0.01" min="0">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="approved_mar" class="form-label">March</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="approved_mar" name="approved_mar" step="0.01" min="0">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="approved_apr" class="form-label">April</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="approved_apr" name="approved_apr" step="0.01" min="0">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label for="approved_may" class="form-label">May</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="approved_may" name="approved_may" step="0.01" min="0">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="approved_jun" class="form-label">June</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="approved_jun" name="approved_jun" step="0.01" min="0">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="approved_jul" class="form-label">July</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="approved_jul" name="approved_jul" step="0.01" min="0">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="approved_aug" class="form-label">August</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="approved_aug" name="approved_aug" step="0.01" min="0">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label for="approved_sep" class="form-label">September</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="approved_sep" name="approved_sep" step="0.01" min="0">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="approved_oct" class="form-label">October</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="approved_oct" name="approved_oct" step="0.01" min="0">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="approved_nov" class="form-label">November</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="approved_nov" name="approved_nov" step="0.01" min="0">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="approved_dec" class="form-label">December</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="approved_dec" name="approved_dec" step="0.01" min="0">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h5 class="mb-2 mt-4">Actual Monthly Values</h5>
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label for="actual_jan" class="form-label">January</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="actual_jan" name="actual_jan" step="0.01" min="0">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="actual_feb" class="form-label">February</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="actual_feb" name="actual_feb" step="0.01" min="0">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="actual_mar" class="form-label">March</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="actual_mar" name="actual_mar" step="0.01" min="0">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="actual_apr" class="form-label">April</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="actual_apr" name="actual_apr" step="0.01" min="0">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label for="actual_may" class="form-label">May</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="actual_may" name="actual_may" step="0.01" min="0">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="actual_jun" class="form-label">June</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="actual_jun" name="actual_jun" step="0.01" min="0">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="actual_jul" class="form-label">July</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="actual_jul" name="actual_jul" step="0.01" min="0">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="actual_aug" class="form-label">August</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="actual_aug" name="actual_aug" step="0.01" min="0">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label for="actual_sep" class="form-label">September</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="actual_sep" name="actual_sep" step="0.01" min="0">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="actual_oct" class="form-label">October</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="actual_oct" name="actual_oct" step="0.01" min="0">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="actual_nov" class="form-label">November</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="actual_nov" name="actual_nov" step="0.01" min="0">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="actual_dec" class="form-label">December</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="actual_dec" name="actual_dec" step="0.01" min="0">
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
@@ -249,6 +452,9 @@
             const trainingSection = document.getElementById('training-section');
             const travelSection = document.getElementById('travel-section');
             const standardFinancialSection = document.getElementById('standard-financial-section');
+            const monthlyBreakdownSection = document.getElementById('monthly-breakdown-section');
+            const withBreakdownCheckbox = document.getElementById('with_breakdown');
+            const standardBudgetSection = document.getElementById('standard-budget-section');
             
             // Function to toggle sections visibility
             function toggleSections() {
@@ -278,8 +484,23 @@
                 }
             }
             
+            // Function to toggle monthly breakdown section
+            function toggleMonthlyBreakdown() {
+                if (withBreakdownCheckbox.checked) {
+                    monthlyBreakdownSection.classList.remove('d-none');
+                    standardBudgetSection.classList.add('d-none');
+                } else {
+                    monthlyBreakdownSection.classList.add('d-none');
+                    standardBudgetSection.classList.remove('d-none');
+                }
+            }
+            
             // Add event listener for category changes
             categorySelect.addEventListener('change', toggleSections);
+            withBreakdownCheckbox.addEventListener('change', toggleMonthlyBreakdown);
+            
+            // Initial call to set correct visibility
+            toggleSections();
         });
     </script>
     <footer class="mt-4 text-center">

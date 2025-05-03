@@ -110,19 +110,247 @@
                     {% endif %}
                     
                     <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label for="approved_value" class="form-label">Approved Budget</label>
-                            <div class="input-group">
-                                <span class="input-group-text">$</span>
-                                <input type="number" step="0.01" class="form-control" id="approved_value" name="approved_value" value="{{ expense.ApprovedValue }}" required>
+                        <div class="col-md-12">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="with_breakdown" name="with_breakdown" {% if expense.WithBreakdown %}checked{% endif %}>
+                                <label class="form-check-label" for="with_breakdown">
+                                    With Monthly Breakdown
+                                </label>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <label for="contracted_value" class="form-label">Contracted Value</label>
-                            <div class="input-group">
-                                <span class="input-group-text">$</span>
-                                <input type="number" step="0.01" class="form-control" id="contracted_value" name="contracted_value" value="{{ expense.ContractedValue }}">
+                    </div>
+                    
+                    <!-- Standard Budget Fields (hidden when monthly breakdown is enabled) -->
+                    <div id="standard-budget-section" class="{% if expense.WithBreakdown %}d-none{% endif %}">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="approved_value" class="form-label">Approved Budget</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="approved_value" name="approved_value" step="0.01" min="0" value="{{ expense.ApprovedValue }}" required>
+                                </div>
                             </div>
+                            <div class="col-md-6">
+                                <label for="contracted_value" class="form-label">Contracted Value</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="contracted_value" name="contracted_value" step="0.01" min="0" value="{{ expense.ContractedValue }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Monthly Breakdown Section (conditionally displayed) -->
+                    <div id="monthly-breakdown-section" class="{% if not expense.WithBreakdown %}d-none{% endif %}">
+                        <h4 class="mb-3 mt-4">Monthly Breakdown</h4>
+                        
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Month</th>
+                                        <th class="text-end">Approved Budget</th>
+                                        <th class="text-end">Actual Spend</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>January</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <span class="input-group-text">$</span>
+                                                <input type="number" class="form-control approved-month" id="approved_jan" name="approved_jan" value="{{ expense.ApprovedJan | default(0) }}" step="0.01" min="0">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <span class="input-group-text">$</span>
+                                                <input type="number" class="form-control actual-month" id="actual_jan" name="actual_jan" value="{{ expense.ActualJan | default(0) }}" step="0.01" min="0">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>February</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <span class="input-group-text">$</span>
+                                                <input type="number" class="form-control approved-month" id="approved_feb" name="approved_feb" value="{{ expense.ApprovedFeb | default(0) }}" step="0.01" min="0">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <span class="input-group-text">$</span>
+                                                <input type="number" class="form-control actual-month" id="actual_feb" name="actual_feb" value="{{ expense.ActualFeb | default(0) }}" step="0.01" min="0">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>March</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <span class="input-group-text">$</span>
+                                                <input type="number" class="form-control approved-month" id="approved_mar" name="approved_mar" value="{{ expense.ApprovedMar | default(0) }}" step="0.01" min="0">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <span class="input-group-text">$</span>
+                                                <input type="number" class="form-control actual-month" id="actual_mar" name="actual_mar" value="{{ expense.ActualMar | default(0) }}" step="0.01" min="0">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>April</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <span class="input-group-text">$</span>
+                                                <input type="number" class="form-control approved-month" id="approved_apr" name="approved_apr" value="{{ expense.ApprovedApr | default(0) }}" step="0.01" min="0">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <span class="input-group-text">$</span>
+                                                <input type="number" class="form-control actual-month" id="actual_apr" name="actual_apr" value="{{ expense.ActualApr | default(0) }}" step="0.01" min="0">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>May</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <span class="input-group-text">$</span>
+                                                <input type="number" class="form-control approved-month" id="approved_may" name="approved_may" value="{{ expense.ApprovedMay | default(0) }}" step="0.01" min="0">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <span class="input-group-text">$</span>
+                                                <input type="number" class="form-control actual-month" id="actual_may" name="actual_may" value="{{ expense.ActualMay | default(0) }}" step="0.01" min="0">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>June</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <span class="input-group-text">$</span>
+                                                <input type="number" class="form-control approved-month" id="approved_jun" name="approved_jun" value="{{ expense.ApprovedJun | default(0) }}" step="0.01" min="0">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <span class="input-group-text">$</span>
+                                                <input type="number" class="form-control actual-month" id="actual_jun" name="actual_jun" value="{{ expense.ActualJun | default(0) }}" step="0.01" min="0">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>July</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <span class="input-group-text">$</span>
+                                                <input type="number" class="form-control approved-month" id="approved_jul" name="approved_jul" value="{{ expense.ApprovedJul | default(0) }}" step="0.01" min="0">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <span class="input-group-text">$</span>
+                                                <input type="number" class="form-control actual-month" id="actual_jul" name="actual_jul" value="{{ expense.ActualJul | default(0) }}" step="0.01" min="0">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>August</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <span class="input-group-text">$</span>
+                                                <input type="number" class="form-control approved-month" id="approved_aug" name="approved_aug" value="{{ expense.ApprovedAug | default(0) }}" step="0.01" min="0">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <span class="input-group-text">$</span>
+                                                <input type="number" class="form-control actual-month" id="actual_aug" name="actual_aug" value="{{ expense.ActualAug | default(0) }}" step="0.01" min="0">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>September</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <span class="input-group-text">$</span>
+                                                <input type="number" class="form-control approved-month" id="approved_sep" name="approved_sep" value="{{ expense.ApprovedSep | default(0) }}" step="0.01" min="0">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <span class="input-group-text">$</span>
+                                                <input type="number" class="form-control actual-month" id="actual_sep" name="actual_sep" value="{{ expense.ActualSep | default(0) }}" step="0.01" min="0">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>October</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <span class="input-group-text">$</span>
+                                                <input type="number" class="form-control approved-month" id="approved_oct" name="approved_oct" value="{{ expense.ApprovedOct | default(0) }}" step="0.01" min="0">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <span class="input-group-text">$</span>
+                                                <input type="number" class="form-control actual-month" id="actual_oct" name="actual_oct" value="{{ expense.ActualOct | default(0) }}" step="0.01" min="0">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>November</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <span class="input-group-text">$</span>
+                                                <input type="number" class="form-control approved-month" id="approved_nov" name="approved_nov" value="{{ expense.ApprovedNov | default(0) }}" step="0.01" min="0">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <span class="input-group-text">$</span>
+                                                <input type="number" class="form-control actual-month" id="actual_nov" name="actual_nov" value="{{ expense.ActualNov | default(0) }}" step="0.01" min="0">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>December</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <span class="input-group-text">$</span>
+                                                <input type="number" class="form-control approved-month" id="approved_dec" name="approved_dec" value="{{ expense.ApprovedDec | default(0) }}" step="0.01" min="0">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <span class="input-group-text">$</span>
+                                                <input type="number" class="form-control actual-month" id="actual_dec" name="actual_dec" value="{{ expense.ActualDec | default(0) }}" step="0.01" min="0">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="table-secondary fw-bold">
+                                        <td>Total</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <span class="input-group-text">$</span>
+                                                <input type="text" class="form-control" id="total_approved" readonly>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <span class="input-group-text">$</span>
+                                                <input type="text" class="form-control" id="total_actual" readonly>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     
@@ -134,11 +362,11 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label for="sunset_plan" class="form-label">Sunset Plan</label>
-                            <textarea class="form-control" id="sunset_plan" name="sunset_plan" rows="2">{{ expense.SunsetPlan }}</textarea>
+                            <label for="sunset_plan" class="form-label">Sunset Plan <span class="text-muted">(if applicable)</span></label>
+                            <textarea class="form-control" id="sunset_plan" name="sunset_plan" rows="3">{{ expense.SunsetPlan }}</textarea>
                         </div>
                     </div>
-                    
+
                     <!-- Additional Information -->
                     <h4 class="mb-3 mt-4">Additional Information</h4>
                     <div class="row mb-3">
@@ -241,6 +469,10 @@
             const employeeSection = document.getElementById('employee-section');
             const trainingSection = document.getElementById('training-section');
             const travelSection = document.getElementById('travel-section');
+            const standardFinancialSection = document.getElementById('standard-financial-section');
+            const monthlyBreakdownSection = document.getElementById('monthly-breakdown-section');
+            const withBreakdownCheckbox = document.getElementById('with_breakdown');
+            const standardBudgetSection = document.getElementById('standard-budget-section');
             
             // Function to toggle sections visibility
             function toggleSections() {
@@ -249,8 +481,10 @@
                 // Toggle employee section
                 if (selectedCategory === 'FTE' || selectedCategory === 'AWF') {
                     employeeSection.classList.remove('d-none');
+                    standardFinancialSection.classList.add('d-none');
                 } else {
                     employeeSection.classList.add('d-none');
+                    standardFinancialSection.classList.remove('d-none');
                 }
 
                 // Toggle travel section
@@ -268,8 +502,48 @@
                 }
             }
             
+            // Function to toggle monthly breakdown section
+            function toggleMonthlyBreakdown() {
+                if (withBreakdownCheckbox.checked) {
+                    monthlyBreakdownSection.classList.remove('d-none');
+                    standardBudgetSection.classList.add('d-none');
+                } else {
+                    monthlyBreakdownSection.classList.add('d-none');
+                    standardBudgetSection.classList.remove('d-none');
+                }
+            }
+            
+            // Function to calculate totals
+            function calculateTotals() {
+                let totalApproved = 0;
+                let totalActual = 0;
+                
+                // Sum up all approved values
+                document.querySelectorAll('.approved-month').forEach(function(input) {
+                    totalApproved += parseFloat(input.value || 0);
+                });
+                
+                // Sum up all actual values
+                document.querySelectorAll('.actual-month').forEach(function(input) {
+                    totalActual += parseFloat(input.value || 0);
+                });
+                
+                // Display the totals
+                document.getElementById('total_approved').value = totalApproved.toFixed(2);
+                document.getElementById('total_actual').value = totalActual.toFixed(2);
+            }
+            
             // Add event listener for category changes
             categorySelect.addEventListener('change', toggleSections);
+            withBreakdownCheckbox.addEventListener('change', toggleMonthlyBreakdown);
+            
+            // Add event listeners to all month inputs for calculating totals
+            document.querySelectorAll('.approved-month, .actual-month').forEach(function(input) {
+                input.addEventListener('input', calculateTotals);
+            });
+            
+            // Initial call to set correct visibility
+            toggleSections();
         });
     </script>
     <footer class="mt-4 text-center">
