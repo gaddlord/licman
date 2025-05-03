@@ -14,7 +14,7 @@
         <a href="{{ url_for('index') }}">
             <img src="{{ url_for('static', filename='svg/logo.svg') }}" alt="Logo" style="height:40px;">
         </a>
-        <h1 class="mb-4 text-end">FireOps Budget Tracker</h1>
+        <h1 class="mb-4 text-end">LicMan - FireOps Budget Tracker</h1>
         
         <!-- Filters Section -->
         <div class="card mb-4">
@@ -73,9 +73,14 @@
         
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h5 class="mb-0">Expenses</h5>
-            <a href="{{ url_for('new_expense') }}" class="btn btn-success">
-                New Expense
-            </a>
+            <div>
+                <a href="{{ url_for('help_page') }}" class="btn btn-info me-2">
+                    Need Help?
+                </a>
+                <a href="{{ url_for('new_expense') }}" class="btn btn-success">
+                    New Expense
+                </a>
+            </div>
         </div>
         
         <!-- Expenses Table -->

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help - FireOps Budget Tracker</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='ico/favicon.ico') }}">
+</head>
+<body>
+    <div class="container mt-4">
+        <a href="{{ url_for('index') }}">
+            <img src="{{ url_for('static', filename='svg/logo.svg') }}" alt="Logo" style="height:40px;">
+        </a>
+        <h1 class="mb-4 text-end">Help</h1>
+        
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Help Center</h5>
+            </div>
+            <div class="card-body">
+                <div class="text-center py-5">
+                    <h2 class="display-4">Need help with LicMan?</h2>
+                </div>
+                <p class="text-start">LicMan is AppFire LLC. budget planning and expense tracking tool.</p>
+                <p>In AppFire we are committed to ensuring we spend only on meaningful value generating activities.</p>
+                <p>Usually we carefully plan the Planned budget for the next fiscal year and it goes through approval.</p>
+                <p>When the budget is approved we start placing purchase orders in Coupa (our Procurement system) either as Contracts or Virtual Payment Cards.</p>
+
+                <p>The Expense is the most important part of the system. It is the planned expense which has its budget approved.</p>
+                <p>An Expense has many attributes such as:
+                    <ul>
+                        <li>Vendor</li>
+                        <li>Product</li>
+                        <li>Category</li>
+                        <li>Organization</li>
+                        <li>Group</li>
+                        <li>Cost Per Unit</li>
+                        <li>Number of Units</li>
+                        <li>Approved Budget</li>
+                        <li>Contracted Value</li>
+                        <li>Sunset flag</li>
+                        <li>Sunset plan</li>
+                        <li>Notes</li>
+                        <li>as well as specific attributes based on the selected Category.</li>
+                    </ul>
+                </p>
+
+                <p>Let's elaborate on each of the Expense attributes.</p>
+                <p></p>
+                <p>In case you need more assistance please create an <a href="https://appfireteam.atlassian.net/servicedesk/customer/portal/15/group/58" target="_blank" rel="noopener noreferrer nofollow">ATeam Global DevOps ticket</a> and we would happily assist you.</p>
+            </div>
+            <div class="text-center mb-4">
+                <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg">
+                    Back to Work
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <footer class="mt-4 text-center">
+        <p>&copy; {{ current_year }} AppFire LLC. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

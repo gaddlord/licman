@@ -307,5 +307,12 @@ def delete_expense(expense_id):
     # Redirect to the index page
     return redirect(url_for('index'))
 
+@app.route('/help')
+def help_page():
+    # Get current year for footer
+    current_year = datetime.datetime.now().year
+    
+    return render_template('help.html', current_year=current_year)
+
 if __name__ == '__main__':
     app.run(debug=True, port=5004)
