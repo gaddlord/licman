@@ -107,6 +107,113 @@ def expense_detail(expense_id):
                           expense=expense,
                           current_year=current_year)
 
+@app.route('/expense/new', methods=['GET', 'POST'])
+def new_expense():
+    # Get reference data for dropdowns
+    years = Years.query.all()
+    organizations = Organization.query.all()
+    categories = Category.query.all()
+    groups = Groups.query.all()
+    license_models = LicenseModel.query.all()
+    accounts = Accounts.query.all()
+    
+    # Get current year for footer
+    current_year = datetime.datetime.now().year
+    
+    # Create a new expense object with default values
+    expense = Expense(
+        YearId='',
+        AccountId=0,
+        OrganizationId='',
+        GroupId='',
+        CategoryId='',
+        Vendor='',
+        Product='',
+        LicenseModelId='',
+        CostPerUnit=0.0,
+        NumberOfUnits=0,
+        ApprovedValue=0.0,
+        ContractedValue=0.0,
+        Sunset=False,
+        SunsetPlan='',
+        Notes='',
+        ProcurementUrl='',
+        EmployeeName='',
+        EmployeeAnnualSalary=0.0,
+        EmployeeAnnualBonus=0.0,
+        EmployeeAnnualBenefits=0.0,
+        TripName='',
+        TripNumberOfPassengers=0,
+        TrainingName='',
+        TrainingNumberOfTrainees=0
+    )
+    
+    # Handle form submission
+    if request.method == 'POST':
+        # Update expense with form data
+        expense.YearId = request.form.get('year')
+        expense.AccountId = int(request.form.get('account'))
+        expense.OrganizationId = request.form.get('organization')
+        expense.GroupId = request.form.get('group')
+        expense.CategoryId = request.form.get('category')
+        expense.Vendor = request.form.get('vendor')
+        expense.Product = request.form.get('product')
+        expense.LicenseModelId = request.form.get('license_model')
+        expense.CostPerUnit = float(request.form.get('cost_per_unit') or 0)
+        expense.NumberOfUnits = int(request.form.get('number_of_units') or 0)
+        expense.ApprovedValue = float(request.form.get('approved_value') or 0)
+        expense.ContractedValue = float(request.form.get('contracted_value') or 0)
+        expense.Sunset = 'sunset' in request.form
+        expense.SunsetPlan = request.form.get('sunset_plan')
+        expense.Notes = request.form.get('notes')
+        expense.ProcurementUrl = request.form.get('procurement_url')
+        expense.EmployeeName = request.form.get('employee_name')
+        
+        # Handle optional numeric fields
+        if request.form.get('employee_annual_salary'):
+            expense.EmployeeAnnualSalary = float(request.form.get('employee_annual_salary'))
+        if request.form.get('employee_annual_bonus'):
+            expense.EmployeeAnnualBonus = float(request.form.get('employee_annual_bonus'))
+        if request.form.get('employee_annual_benefits'):
+            expense.EmployeeAnnualBenefits = float(request.form.get('employee_annual_benefits'))
+        
+        # Handle date field
+        if request.form.get('employee_target_start_date'):
+            try:
+                expense.EmployeeTargetStartDate = datetime.datetime.strptime(
+                    request.form.get('employee_target_start_date'), '%Y-%m-%d'
+                ).date()
+            except ValueError:
+                pass
+        
+        # Handle other optional fields
+        if request.form.get('trip_name'):
+            expense.TripName = request.form.get('trip_name')
+        if request.form.get('trip_number_of_passengers'):
+            expense.TripNumberOfPassengers = int(request.form.get('trip_number_of_passengers') or 0)
+        if request.form.get('training_name'):
+            expense.TrainingName = request.form.get('training_name')
+        if request.form.get('training_number_of_trainees'):
+            expense.TrainingNumberOfTrainees = int(request.form.get('training_number_of_trainees') or 0)
+        
+        # Add to database
+        db.session.add(expense)
+        db.session.commit()
+        
+        # Redirect to detail page
+        return redirect(url_for('expense_detail', expense_id=expense.ExpenseId))
+    
+    # Render new expense form
+    return render_template('expense_new.html',
+                          expense=expense,
+                          years=years,
+                          organizations=organizations,
+                          categories=categories,
+                          groups=groups,
+                          license_models=license_models,
+                          accounts=accounts,
+                          current_year=current_year)
+
 @app.route('/expense/<int:expense_id>/edit', methods=['GET', 'POST'])
 def edit_expense(expense_id):
     # Get the expense record

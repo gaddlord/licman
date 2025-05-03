@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FireOps Budget Tracker</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='ico/favicon.ico') }}">
 </head>
@@ -70,6 +71,13 @@
             </div>
         </div>
         
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="mb-0">Expenses</h5>
+            <a href="{{ url_for('new_expense') }}" class="btn btn-success">
+                New Expense
+            </a>
+        </div>
+        
         <!-- Expenses Table -->
         <div class="table-responsive">
             <table class="table table-striped table-hover">
@@ -89,7 +97,7 @@
                         <th>Group</th>
                         <th class="text-end">Cost Per Unit</th>
                         <th class="text-end">Units</th>
-                        <th class="text-end">Approved Value</th>
+                        <th class="text-end">Approved Budget</th>
                         <th class="text-end">Contracted Value</th>
                         <th class="text-center">Sunset</th>
                     </tr>
