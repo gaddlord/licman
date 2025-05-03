@@ -1,0 +1,112 @@
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import Column, Integer, String, Float, Boolean, Date, ForeignKey
+from sqlalchemy.orm import relationship
+
+db = SQLAlchemy()
+
+class Years(db.Model):
+    __tablename__ = 'Years'
+    YearId = Column(String(4), primary_key=True)
+    Name = Column(String(100), unique=True, nullable=False)
+    expenses = relationship('Expense', back_populates='year')
+
+    def __repr__(self):
+        return f'<Year {self.Name}>'
+
+class Accounts(db.Model):
+    __tablename__ = 'Accounts'
+    AccountId = Column(Integer, primary_key=True)
+    Name = Column(String(100), unique=True, nullable=False)
+    expenses = relationship('Expense', back_populates='account')
+
+    def __repr__(self):
+        return f'<Account {self.Name}>'
+
+class Category(db.Model):
+    __tablename__ = 'Category'
+    CategoryId = Column(String(100), primary_key=True)
+    Name = Column(String(100), nullable=False)
+    expenses = relationship('Expense', back_populates='category')
+
+    def __repr__(self):
+        return f'<Category {self.Name}>'
+
+class Groups(db.Model):
+    __tablename__ = 'Groups'
+    GroupId = Column(String(100), primary_key=True)
+    Name = Column(String(100), unique=True, nullable=False)
+    expenses = relationship('Expense', back_populates='group')
+
+    def __repr__(self):
+        return f'<Group {self.Name}>'
+
+class LicenseModel(db.Model):
+    __tablename__ = 'LicenseModel'
+    LicenseModelId = Column(String(100), primary_key=True)
+    Name = Column(String(100), unique=True, nullable=False)
+    expenses = relationship('Expense', back_populates='license_model')
+
+    def __repr__(self):
+        return f'<LicenseModel {self.Name}>'
+
+class Organization(db.Model):
+    __tablename__ = 'Organization'
+    OrganizationId = Column(String(100), primary_key=True)
+    Name = Column(String(100), unique=True, nullable=False)
+    expenses = relationship('Expense', back_populates='organization')
+
+    def __repr__(self):
+        return f'<Organization {self.Name}>'
+
+class Expense(db.Model):
+    __tablename__ = 'Expense'
+    ExpenseId = Column(Integer, primary_key=True, autoincrement=True)
+    YearId = Column(String(4), ForeignKey('Years.YearId'), nullable=False)
+    AccountId = Column(Integer, ForeignKey('Accounts.AccountId'), nullable=False)
+    OrganizationId = Column(String(100), ForeignKey('Organization.OrganizationId'), nullable=False)
+    GroupId = Column(String(100), ForeignKey('Groups.GroupId'), nullable=False)
+    CategoryId = Column(String(100), ForeignKey('Category.CategoryId'), nullable=False)
+    Vendor = Column(String(100), nullable=False)
+    Product = Column(String(100), nullable=False)
+    LicenseModelId = Column(String(100), ForeignKey('LicenseModel.LicenseModelId'), nullable=False)
+    CostPerUnit = Column(Float)
+    Sunset = Column(Boolean, default=False, nullable=False)
+    SunsetPlan = Column(String(500))
+    Notes = Column(String(500))
+    NumberOfUnits = Column(Integer)
+    ApprovedValue = Column(Float, nullable=False)
+    ContractedValue = Column(Float)
+    ProcurementUrl = Column(String(1000))
+    EmployeeName = Column(String(100))
+    EmployeeAnnualSalary = Column(Float)
+    EmployeeAnnualBonus = Column(Float)
+    EmployeeAnnualBenefits = Column(Float)
+    EmployeeTargetStartDate = Column(Date)
+    TripName = Column(String(100))
+    TripNumberOfPassengers = Column(Integer)
+    TrainingName = Column(String(100))
+    TrainingNumberOfTrainees = Column(Integer)
+    
+    # Relationships
+    year = relationship('Years', back_populates='expenses')
+    account = relationship('Accounts', back_populates='expenses')
+    organization = relationship('Organization', back_populates='expenses')
+    group = relationship('Groups', back_populates='expenses')
+    category = relationship('Category', back_populates='expenses')
+    license_model = relationship('LicenseModel', back_populates='expenses')
+    licenses = relationship('Licenses', back_populates='expense')
+
+    def __repr__(self):
+        return f'<Expense {self.Product} - {self.Vendor}>'
+
+class Licenses(db.Model):
+    __tablename__ = 'Licenses'
+    LicenseId = Column(Integer, primary_key=True)
+    EmployeeEmail = Column(String(256), nullable=False)
+    ExpenseId = Column(Integer, ForeignKey('Expense.ExpenseId'), nullable=False)
+    
+    # Relationship
+    expense = relationship('Expense', back_populates='licenses')
+
+    def __repr__(self):
+        return f'<License {self.EmployeeEmail}>'

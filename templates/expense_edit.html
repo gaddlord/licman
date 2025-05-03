@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Expense - FireOps Budget Tracker</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='ico/favicon.ico') }}">
+</head>
+<body>
+    <div class="container mt-4">
+        <a href="{{ url_for('index') }}">
+            <img src="{{ url_for('static', filename='svg/logo.svg') }}" alt="Logo" style="height:40px;">
+        </a>
+        <h1 class="mb-4 text-end">Edit Expense</h1>
+        
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">{{ expense.Product }} - {{ expense.Vendor }}</h5>
+            </div>
+            <div class="card-body">
+                <form action="{{ url_for('edit_expense', expense_id=expense.ExpenseId) }}" method="post">
+                    <!-- Basic Information -->
+                    <h4 class="mb-3">Basic Information</h4>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="year" class="form-label">Year</label>
+                            <select name="year" id="year" class="form-select" required>
+                                {% for year in years %}
+                                <option value="{{ year.YearId }}" {% if expense.YearId == year.YearId %}selected{% endif %}>{{ year.Name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="group" class="form-label">Group</label>
+                            <select name="group" id="group" class="form-select" required>
+                                {% for group in groups %}
+                                <option value="{{ group.GroupId }}" {% if expense.GroupId == group.GroupId %}selected{% endif %}>{{ group.Name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="account" class="form-label">Account</label>
+                            <select name="account" id="account" class="form-select" required>
+                                {% for account in accounts %}
+                                <option value="{{ account.AccountId }}" {% if expense.AccountId == account.AccountId %}selected{% endif %}>{{ account.Name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="category" class="form-label">Category</label>
+                            <select name="category" id="category" class="form-select" required>
+                                {% for category in categories %}
+                                <option value="{{ category.CategoryId }}" {% if expense.CategoryId == category.CategoryId %}selected{% endif %}>{{ category.Name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="organization" class="form-label">Organization</label>
+                            <select name="organization" id="organization" class="form-select" required>
+                                {% for org in organizations %}
+                                <option value="{{ org.OrganizationId }}" {% if expense.OrganizationId == org.OrganizationId %}selected{% endif %}>{{ org.Name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="license_model" class="form-label">License Model</label>
+                            <select name="license_model" id="license_model" class="form-select" required>
+                                {% for model in license_models %}
+                                <option value="{{ model.LicenseModelId }}" {% if expense.LicenseModelId == model.LicenseModelId %}selected{% endif %}>{{ model.Name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="vendor" class="form-label">Vendor</label>
+                            <input type="text" class="form-control" id="vendor" name="vendor" value="{{ expense.Vendor }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="product" class="form-label">Product</label>
+                            <input type="text" class="form-control" id="product" name="product" value="{{ expense.Product }}" required>
+                        </div>
+                    </div>
+                    
+                    <!-- Financial Information -->
+                    <h4 class="mb-3 mt-4">Financial Information</h4>
+                    {% if expense.CategoryId not in ['FTE', 'AWF'] %}
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="cost_per_unit" class="form-label">Cost Per Unit</label>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input type="number" step="0.01" class="form-control" id="cost_per_unit" name="cost_per_unit" value="{{ expense.CostPerUnit }}">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="number_of_units" class="form-label">Number of Units</label>
+                            <input type="number" class="form-control" id="number_of_units" name="number_of_units" value="{{ expense.NumberOfUnits }}">
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="approved_value" class="form-label">Approved Value</label>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input type="number" step="0.01" class="form-control" id="approved_value" name="approved_value" value="{{ expense.ApprovedValue }}" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="contracted_value" class="form-label">Contracted Value</label>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input type="number" step="0.01" class="form-control" id="contracted_value" name="contracted_value" value="{{ expense.ContractedValue }}">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-check mt-4">
+                                <input class="form-check-input" type="checkbox" id="sunset" name="sunset" {% if expense.Sunset %}checked{% endif %}>
+                                <label class="form-check-label" for="sunset">Sunset</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="sunset_plan" class="form-label">Sunset Plan</label>
+                            <textarea class="form-control" id="sunset_plan" name="sunset_plan" rows="2">{{ expense.SunsetPlan }}</textarea>
+                        </div>
+                    </div>
+                    
+                    <!-- Additional Information -->
+                    <h4 class="mb-3 mt-4">Additional Information</h4>
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <label for="notes" class="form-label">Notes</label>
+                            <textarea class="form-control" id="notes" name="notes" rows="3">{{ expense.Notes }}</textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <label for="procurement_url" class="form-label">Procurement URL <span class="text-muted">(optional)</span></label>
+                            <input type="url" class="form-control" id="procurement_url" name="procurement_url" value="{{ expense.ProcurementUrl }}">
+                        </div>
+                    </div>
+                    
+                    <!-- Employee Information (conditionally displayed) -->
+                    <div id="employee-section" class="{% if expense.CategoryId not in ['FTE', 'AWF'] %}d-none{% endif %}">
+                        <h4 class="mb-3 mt-4">Employee Information</h4>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="employee_name" class="form-label">Employee Name</label>
+                                <input type="text" class="form-control" id="employee_name" name="employee_name" value="{{ expense.EmployeeName }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="employee_target_start_date" class="form-label">Target Start Date</label>
+                                <input type="date" class="form-control" id="employee_target_start_date" name="employee_target_start_date" value="{{ expense.EmployeeTargetStartDate }}">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="employee_annual_salary" class="form-label">Annual Salary</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" step="0.01" class="form-control" id="employee_annual_salary" name="employee_annual_salary" value="{{ expense.EmployeeAnnualSalary }}">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="employee_annual_bonus" class="form-label">Annual Bonus</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" step="0.01" class="form-control" id="employee_annual_bonus" name="employee_annual_bonus" value="{{ expense.EmployeeAnnualBonus }}">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="employee_annual_benefits" class="form-label">Annual Benefits</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" step="0.01" class="form-control" id="employee_annual_benefits" name="employee_annual_benefits" value="{{ expense.EmployeeAnnualBenefits }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Travel Information (conditionally displayed) -->
+                    <div id="travel-section" class="{% if expense.CategoryId != 'TE' %}d-none{% endif %}">
+                        <h4 class="mb-3 mt-4">Travel Information</h4>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="travel_name" class="form-label">Travel Name</label>
+                                <input type="text" class="form-control" id="travel_name" name="travel_name" value="{{ expense.TravelName }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="travel_number_of_passengers" class="form-label">Number of Passengers</label>
+                                <input type="number" class="form-control" id="travel_number_of_passengers" name="travel_number_of_passengers" value="{{ expense.TravelNumberOfPassengers }}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Training Information (conditionally displayed) -->
+                    <div id="training-section" class="{% if expense.CategoryId != 'TR' %}d-none{% endif %}">
+                        <h4 class="mb-3 mt-4">Training Information</h4>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="training_name" class="form-label">Training Name</label>
+                                <input type="text" class="form-control" id="training_name" name="training_name" value="{{ expense.TrainingName }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="training_number_of_trainees" class="form-label">Number of Trainees</label>
+                                <input type="number" class="form-control" id="training_number_of_trainees" name="training_number_of_trainees" value="{{ expense.TrainingNumberOfTrainees }}">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Form Buttons -->
+                    <div class="d-flex justify-content-end gap-2 mt-4">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <a href="{{ url_for('expense_detail', expense_id=expense.ExpenseId) }}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Show/hide sections based on category selection
+        document.addEventListener('DOMContentLoaded', function() {
+            const categorySelect = document.getElementById('category');
+            const employeeSection = document.getElementById('employee-section');
+            const trainingSection = document.getElementById('training-section');
+            const travelSection = document.getElementById('travel-section');
+            
+            // Function to toggle sections visibility
+            function toggleSections() {
+                const selectedCategory = categorySelect.value;
+                
+                // Toggle employee section
+                if (selectedCategory === 'FTE' || selectedCategory === 'AWF') {
+                    employeeSection.classList.remove('d-none');
+                } else {
+                    employeeSection.classList.add('d-none');
+                }
+
+                // Toggle travel section
+                if (selectedCategory === 'TE') {
+                    travelSection.classList.remove('d-none');
+                } else {
+                    travelSection.classList.add('d-none');
+                }
+                
+                // Toggle training section
+                if (selectedCategory === 'TR') {
+                    trainingSection.classList.remove('d-none');
+                } else {
+                    trainingSection.classList.add('d-none');
+                }
+            }
+            
+            // Add event listener for category changes
+            categorySelect.addEventListener('change', toggleSections);
+        });
+    </script>
+    <footer class="mt-4 text-center">
+        <p>&copy; {{ current_year }} AppFire LLC. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

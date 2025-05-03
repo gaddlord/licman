@@ -1,0 +1,74 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h1 {
+    color: #343a40;
+    border-bottom: 2px solid #6c757d;
+    padding-bottom: 10px;
+}
+
+.table {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.table-dark th {
+    background-color: #343a40;
+}
+
+.btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+}
+
+select.form-select {
+    border-color: #ced4da;
+}
+
+select.form-select:focus {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Sunset row styling */
+.sunset-row-odd {
+    background-color: #ffcc80 !important; /* Light orange for odd rows */
+}
+
+.sunset-row-even {
+    background-color: #ffb74d !important; /* Darker orange for even rows */
+}
+
+/* Ensure text remains visible on sunset backgrounds */
+.sunset-row-odd:hover, .sunset-row-even:hover {
+    background-color: #ffa726 !important; /* Darker orange on hover */
+}
+
+/* Cursor style for sunset cells with plans */
+.sunset-cell {
+    cursor: pointer;
+}
+
+/* Styles for value differences */
+.value-diff-positive {
+    color: #dc3545; /* Bootstrap red */
+    font-weight: 500;
+}
+
+.value-diff-negative {
+    color: #198754; /* Bootstrap green */
+    font-weight: 500;
+}

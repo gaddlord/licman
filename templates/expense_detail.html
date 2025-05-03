@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Detail - FireOps Budget Tracker</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='ico/favicon.ico') }}">
+</head>
+<body>
+    <div class="container mt-4">
+        <a href="{{ url_for('index') }}">
+            <img src="{{ url_for('static', filename='svg/logo.svg') }}" alt="Logo" style="height:40px;">
+        </a>
+        <h1 class="mb-4 text-end">Expense Detail</h1>
+        
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">{{ expense.Product }} - {{ expense.Vendor }}</h5>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Year:</div>
+                    <div class="col-md-9">{{ expense.year.Name }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Vendor:</div>
+                    <div class="col-md-9">{{ expense.Vendor }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Product:</div>
+                    <div class="col-md-9">{{ expense.Product }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Category:</div>
+                    <div class="col-md-9">{{ expense.category.Name }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Organization:</div>
+                    <div class="col-md-9">{{ expense.organization.Name }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Group:</div>
+                    <div class="col-md-9">{{ expense.group.Name }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">License Model:</div>
+                    <div class="col-md-9">{{ expense.license_model.Name }}</div>
+                </div>
+                {% if expense.category.CategoryId not in ['FTE', 'AWF'] %}
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Cost Per Unit:</div>
+                    <div class="col-md-9">${{ expense.CostPerUnit | round | int | format_number }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Number of Units:</div>
+                    <div class="col-md-9">{{ expense.NumberOfUnits }}</div>
+                </div>
+                {% endif %}
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Approved Value:</div>
+                    <div class="col-md-9">${{ expense.ApprovedValue | round | int | format_number }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Contracted Value:</div>
+                    <div class="col-md-9">
+                        ${{ expense.ContractedValue | round | int | format_number }}
+                        {% set diff = (expense.ContractedValue - expense.ApprovedValue) | round | int %}
+                        {% if diff != 0 %}
+                            <span class="{% if diff > 0 %}value-diff-positive{% else %}value-diff-negative{% endif %}">
+                                ({% if diff > 0 %}+{% endif %}${{ diff | format_number }})
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Sunset:</div>
+                    <div class="col-md-9">{% if expense.Sunset %}Yes{% else %}No{% endif %}</div>
+                </div>
+                {% if expense.Sunset and expense.SunsetPlan %}
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Sunset Plan:</div>
+                    <div class="col-md-9">{{ expense.SunsetPlan }}</div>
+                </div>
+                {% endif %}
+                {% if expense.Notes %}
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Notes:</div>
+                    <div class="col-md-9">{{ expense.Notes }}</div>
+                </div>
+                {% endif %}
+                {% if expense.ProcurementUrl %}
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Procurement URL:</div>
+                    <div class="col-md-9">
+                        <a href="{{ expense.ProcurementUrl }}" target="_blank">{{ expense.ProcurementUrl }}</a>
+                    </div>
+                </div>
+                {% endif %}
+                
+                <!-- Additional fields based on expense type -->
+                {% if expense.category.CategoryId in ['FTE', 'AWF'] %}
+                    <div class="row mb-3">
+                        <div class="col-md-3 fw-bold">Employee Name:</div>
+                        <div class="col-md-9">{{ expense.EmployeeName }}</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-3 fw-bold">Employee Annual Salary:</div>
+                        <div class="col-md-9">${{ expense.EmployeeAnnualSalary | round | int | format_number }}</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-3 fw-bold">Employee Annual Bonus:</div>
+                        <div class="col-md-9">${{ expense.EmployeeAnnualBonus | round | int | format_number }}</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-3 fw-bold">Employee Annual Benefits:</div>
+                        <div class="col-md-9">${{ expense.EmployeeAnnualBenefits | round | int | format_number }}</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-3 fw-bold">Employee Target Start Date:</div>
+                        <div class="col-md-9">{{ expense.EmployeeTargetStartDate }}</div>
+                    </div>
+                {% endif %}
+                                
+                {% if expense.category.CategoryId == 'TE' %}
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Trip Name:</div>
+                    <div class="col-md-9">{{ expense.TripName }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Number of Passengers:</div>
+                    <div class="col-md-9">{{ expense.TripNumberOfPassengers }}</div>
+                </div>
+                {% endif %}
+                
+                {% if expense.category.CategoryId == 'TR' %}
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Training Name:</div>
+                    <div class="col-md-9">{{ expense.TrainingName }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Number of Trainees:</div>
+                    <div class="col-md-9">{{ expense.TrainingNumberOfTrainees }}</div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="d-flex justify-content-end gap-2 mb-4">
+            <a href="{{ url_for('edit_expense', expense_id=expense.ExpenseId) }}" class="btn btn-warning">Edit</a>
+            <form action="{{ url_for('delete_expense', expense_id=expense.ExpenseId) }}" method="post" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this expense?');">
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Close</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <footer class="mt-4 text-center">
+        <p>&copy; {{ current_year }} AppFire LLC. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
