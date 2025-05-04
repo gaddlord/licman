@@ -115,7 +115,7 @@
                                 <td>{{ expense.year.Name }}</td>
                                 {% endif %}
                                 <td>{{ expense.Vendor }}</td>
-                                <td><a href="{{ url_for('expense_detail', expense_id=expense.ExpenseId) }}">{{ expense.Product }}</a></td>
+                                <td><a href="{{ url_for('expense_detail', expense_id=expense.ExpenseId) }}" {% if expense.Notes %}title="{{ expense.Notes }}"{% endif %}>{{ expense.Product }}</a></td>
                                 {% if selected_category == 'all' %}
                                 <td>{{ expense.category.Name }}</td>
                                 {% endif %}
@@ -161,9 +161,10 @@
                                         {% set expense_savings = expense_approved - expense_contracted %}
                                         {% set total_savings.value = total_savings.value + expense_savings %}
                                     {% endfor %}
+                                    {% set total_savings.value = total_savings.value * -1 %}
                                     {% if total_savings.value != 0 %}
-                                        <span class="{% if total_savings.value < 0 %}value-diff-positive{% else %}value-diff-negative{% endif %}">
-                                            ({% if total_savings.value < 0 %}+{% endif %}${{ total_savings.value|abs|format_number }})
+                                        <span class="{% if total_savings.value > 0 %}value-diff-positive{% else %}value-diff-negative{% endif %}">
+                                            ({% if total_savings.value > 0 %}+{% endif %}${{ total_savings.value|format_number }})
                                         </span>
                                     {% endif %}
                                 {% endif %}
