@@ -137,7 +137,7 @@
                                         {% endif %}
                                     {% endif %}
                                 </td>
-                                <td class="text-center {% if expense.Sunset %}sunset-cell{% endif %}" {% if expense.Sunset and expense.SunsetPlan %}title="{{ expense.SunsetPlan }}"{% endif %}>{% if expense.Sunset %}Yes{% else %}No{% endif %}</td>
+                                <td class="text-center {% if expense.Sunset %}sunset-cell{% endif %}" {% if expense.Sunset and expense.SunsetPlan %}title="{{ expense.SunsetPlan }}"{% endif %}>{% if expense.Sunset %}<span style="color: #DC3549; font-weight: bold;">Yes</span>{% else %}No{% endif %}</td>
                             </tr>
                         {% endfor %}
                         <!-- Totals Row -->
