@@ -194,6 +194,15 @@ def new_expense():
         expense.ProcurementUrl = request.form.get('procurement_url')
         expense.EmployeeName = request.form.get('employee_name')
         
+        # Handle Renewal date field
+        if request.form.get('renewal'):
+            try:
+                expense.Renewal = datetime.datetime.strptime(
+                    request.form.get('renewal'), '%Y-%m-%d'
+                ).date()
+            except ValueError:
+                pass
+        
         # Handle WithBreakdown field and monthly values
         expense.WithBreakdown = True if request.form.get('with_breakdown') else False
         
@@ -354,6 +363,15 @@ def edit_expense(expense_id):
         expense.Notes = request.form.get('notes')
         expense.ProcurementUrl = request.form.get('procurement_url')
         expense.EmployeeName = request.form.get('employee_name')
+        
+        # Handle Renewal date field
+        if request.form.get('renewal'):
+            try:
+                expense.Renewal = datetime.datetime.strptime(
+                    request.form.get('renewal'), '%Y-%m-%d'
+                ).date()
+            except ValueError:
+                pass
         
         # Handle WithBreakdown field and monthly values
         expense.WithBreakdown = True if request.form.get('with_breakdown') else False

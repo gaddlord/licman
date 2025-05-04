@@ -128,11 +128,13 @@
                                 <td class="text-end">${{ expense.ApprovedValue | round | int | format_number }}</td>
                                 <td class="text-end">
                                     ${{ expense.ContractedValue | round | int | format_number }}
-                                    {% set diff = (expense.ContractedValue - expense.ApprovedValue) | round | int %}
-                                    {% if diff != 0 %}
-                                        <span class="{% if diff > 0 %}value-diff-positive{% else %}value-diff-negative{% endif %}">
-                                            ({% if diff > 0 %}+{% endif %}${{ diff | format_number }})
-                                        </span>
+                                    {% if expense.ContractedValue is defined and expense.ContractedValue != None and expense.ContractedValue != '' and expense.ContractedValue != 0 %}
+                                        {% set diff = (expense.ContractedValue | int - expense.ApprovedValue | default(0) | int) %}
+                                        {% if diff != 0 %}
+                                            <span class="{% if diff > 0 %}value-diff-positive{% else %}value-diff-negative{% endif %}">
+                                                ({% if diff > 0 %}+{% endif %}${{ diff | format_number }})
+                                            </span>
+                                        {% endif %}
                                     {% endif %}
                                 </td>
                                 <td class="text-center {% if expense.Sunset %}sunset-cell{% endif %}" {% if expense.Sunset and expense.SunsetPlan %}title="{{ expense.SunsetPlan }}"{% endif %}>{% if expense.Sunset %}Yes{% else %}No{% endif %}</td>
@@ -148,13 +150,22 @@
                                 ${{ total_approved | format_number }}
                             </td>
                             <td class="text-end">
-                                {% set total_contracted = expenses | sum(attribute='ContractedValue') | round | int %}
+                                {% set total_contracted = expenses|sum(attribute='ContractedValue')|round|int if expenses|length > 0 else 0 %}
                                 ${{ total_contracted | format_number }}
-                                {% set total_diff = (total_contracted - total_approved) | round | int %}
-                                {% if total_diff != 0 %}
-                                    <span class="{% if total_diff > 0 %}value-diff-positive{% else %}value-diff-negative{% endif %}">
-                                        ({% if total_diff > 0 %}+{% endif %}${{ total_diff | format_number }})
-                                    </span>
+                                {% if expenses|length > 0 %}
+                                    {% set total_savings = namespace(value=0) %}
+                                    {% for expense in expenses %}
+                                        {% set expense_approved = expense.ApprovedValue|default(0)|int %}
+                                        {% set expense_contracted_raw = expense.ContractedValue|default(0)|int %}
+                                        {% set expense_contracted = expense_approved if expense_contracted_raw == 0 else expense_contracted_raw %}
+                                        {% set expense_savings = expense_approved - expense_contracted %}
+                                        {% set total_savings.value = total_savings.value + expense_savings %}
+                                    {% endfor %}
+                                    {% if total_savings.value != 0 %}
+                                        <span class="{% if total_savings.value < 0 %}value-diff-positive{% else %}value-diff-negative{% endif %}">
+                                            ({% if total_savings.value < 0 %}+{% endif %}${{ total_savings.value|abs|format_number }})
+                                        </span>
+                                    {% endif %}
                                 {% endif %}
                             </td>
                             <td class="text-center">

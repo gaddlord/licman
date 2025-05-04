@@ -113,3 +113,7 @@ MYSQL_PASSWORD=<database_password>
 MYSQL_DB=<database_name>
 MYSQL_PORT=3306
 ```
+
+## Possible Improvement
+
+* Add Actual Licenses - the number of actually used licenses

@@ -111,6 +111,7 @@ class Expense(db.Model):
     ActualOct = Column(Float)
     ActualNov = Column(Float)
     ActualDec = Column(Float)
+    Renewal = Column(Date)
     
     # Relationships
     year = relationship('Years', back_populates='expenses')

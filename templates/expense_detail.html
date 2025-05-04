@@ -66,11 +66,23 @@
                     <div class="col-md-3 fw-bold">Contracted Value:</div>
                     <div class="col-md-9">
                         ${{ expense.ContractedValue | default(0) | int | format_number }}
-                        {% set diff = (expense.ContractedValue | default(0) - expense.ApprovedValue | default(0)) | int %}
-                        {% if diff != 0 %}
-                            <span class="{% if diff > 0 %}value-diff-positive{% else %}value-diff-negative{% endif %}">
-                                ({% if diff > 0 %}+{% endif %}${{ diff | format_number }})
-                            </span>
+                        {% if expense.ContractedValue is defined and expense.ContractedValue != None and expense.ContractedValue != '' and expense.ContractedValue != 0 %}
+                            {% set diff = (expense.ContractedValue | int - expense.ApprovedValue | default(0) | int) %}
+                            {% if diff != 0 %}
+                                <span class="{% if diff > 0 %}value-diff-positive{% else %}value-diff-negative{% endif %}">
+                                    ({% if diff > 0 %}+{% endif %}${{ diff | format_number }})
+                                </span>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Renewal Date:</div>
+                    <div class="col-md-9">
+                        {% if expense.Renewal %}
+                            {{ expense.Renewal.strftime('%Y-%m-%d') }}
+                        {% else %}
+                            Not specified
                         {% endif %}
                     </div>
                 </div>
