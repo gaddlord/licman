@@ -20,18 +20,18 @@ A Flask application for tracking expenses with MySQL database integration.
 ## Installation
 
 1. Clone the repository:
-```
+```bash
 git clone <repository-url>
 ```
 
 2. Create a virtual environment and activate it:
-```
+```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
 3. Install the required packages:
-```
+```bash
 pip install -r requirements.txt
 ```
 
@@ -78,7 +78,7 @@ expense_tracker/
 │   └── expense_new.html    # Create new expense page
 │   └── expense_edit.html   # Edit existing expense
 │   └── help.html           # Help page
-├── .env                    # Environment variables
+├── .env                    # Environment variables (this file is gitignored)
 ├── README.md               # This very file
 └── requirements.txt        # Python dependencies
 ```
@@ -99,4 +99,17 @@ To re-init the database run
 
 ```bash
 cd /Users/<user>>/repos/licman/expense_tracker && python3 -c "from init_db import init_db; init_db()"
+```
+
+## Environment Variables
+
+Configure the .env file the following way:
+
+```
+LICMAN_PORT=5000
+MYSQL_HOST=<database_host>.us-east-1.rds.amazonaws.com
+MYSQL_USER=<database_user>
+MYSQL_PASSWORD=<database_password>
+MYSQL_DB=<database_name>
+MYSQL_PORT=3306
 ```
