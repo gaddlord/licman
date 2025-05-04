@@ -498,4 +498,5 @@ def help_page():
     return render_template('help.html', current_year=current_year)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5004)
+    port = os.getenv('LICMAN_PORT')
+    app.run(debug=True, port=port)

@@ -4,9 +4,12 @@ A Flask application for tracking expenses with MySQL database integration.
 
 ## Features
 
-- List all expenses with details
-- Filter expenses by year using a dropdown
-- Responsive UI built with Bootstrap
+- Plan expenses for budget years
+- Track actual spend for expenses
+- See overrun for expenses
+- Filter expenses by year, organization, category using a dropdown
+- Responsive UI built with Bootstrap, Flask
+- Backend built with SQLAlchemy, pymysql, python-dotenv
 
 ## Prerequisites
 
@@ -19,7 +22,6 @@ A Flask application for tracking expenses with MySQL database integration.
 1. Clone the repository:
 ```
 git clone <repository-url>
-cd expense_tracker
 ```
 
 2. Create a virtual environment and activate it:
@@ -45,8 +47,8 @@ pip install -r requirements.txt
 ## Running the Application
 
 1. Start the Flask application:
-```
-python app.py
+```python
+python3 app.py
 ```
 
 2. Open your browser and navigate to:
@@ -58,25 +60,43 @@ http://localhost:5000
 
 ```
 expense_tracker/
-├── app.py                 # Main Flask application
+├── app.py                  # Main Flask application
+├── init_db.py              # Initialize the database for the first time
 ├── models/
-│   └── models.py          # SQLAlchemy models
+│   └── ddl.sql             # Database DDL created with DBeaver
+│   └── models.py           # SQLAlchemy models
 ├── static/
 │   └── css/
-│       └── style.css      # Custom CSS styles
+│       └── style.css       # Custom CSS styles
+│   └── ico/
+│       └── favicon.ico     # Custom Favorites Browser icon
+│   └── svg/
+│       └── logo.svg        # AppFire logo
 ├── templates/
-│   └── index.html         # HTML template for the expense listing
-├── .env                   # Environment variables
-└── requirements.txt       # Python dependencies
+│   └── index.html          # Main page listing expenses with filters
+│   └── expense_detail.html # Expense detail read-only page with Edit, Delete buttons
+│   └── expense_new.html    # Create new expense page
+│   └── expense_edit.html   # Edit existing expense
+│   └── help.html           # Help page
+├── .env                    # Environment variables
+├── README.md               # This very file
+└── requirements.txt        # Python dependencies
 ```
 
 ## Database Schema
 
 The application uses the following main tables:
-- `Expense`: Contains expense records with foreign keys to related tables
-- `Years`: Contains available years for filtering
-- Other reference tables: `Accounts`, `Category`, `Groups`, etc.
+- `Accounts`: Contains general ledger accounts (e.g. 6504 - Cloud Services)
+- `Category`: Contains available categories for filtering (e.g. SW - Software, HW - Hardware)
+- `Expense`: Contains the planned expenses and actual spend. This is the master table to which all other link
+- `Groups`: Contains general ledger groups (e.g. COS, G&A)
+- `LicenseModel`: Defined possible ways to charge for licenses (e.g. Fixed Fee, Subscription, etc.)
+- `Licenses`: Contains the licenses given to employees
+- `Organization`: Defines the organizations to which the expenses are assigned (e.g. DevOps, ITOps)
+- `Years`: Contains available fiscal years (e.g. FY25, FY24, FY23)
 
-To reinit the database run
+To re-init the database run
 
-`cd /Users/<user>>/repos/licman/expense_tracker && python3 -c "from init_db import init_db; init_db()"`
+```bash
+cd /Users/<user>>/repos/licman/expense_tracker && python3 -c "from init_db import init_db; init_db()"
+```
