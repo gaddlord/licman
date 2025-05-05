@@ -515,6 +515,18 @@ def help_page():
     
     return render_template('help.html', current_year=current_year)
 
+@app.route('/renewals')
+def renewals():
+    # Get all expenses with Renewal date assigned, sorted by Renewal date
+    expenses = Expense.query.filter(Expense.Renewal.isnot(None)).order_by(Expense.Renewal).all()
+    
+    # Get current year for footer
+    current_year = datetime.datetime.now().year
+    
+    return render_template('renewals.html', 
+                          expenses=expenses,
+                          current_year=current_year)
+
 if __name__ == '__main__':
     port = os.getenv('LICMAN_PORT')
     app.run(debug=True, port=port)
