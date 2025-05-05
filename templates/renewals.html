@@ -61,6 +61,25 @@
                                 <td class="text-end">{{ expense.NumberOfUnits }}</td>
                                 <td class="text-end">${{ expense.ApprovedValue | round | int | format_number }}</td>
                             </tr>
+                            {% if expense.Sunset %}
+                            <tr>
+                                <td colspan="9" style="color: #DC3549;">
+                                    <strong>Sunset = YES</strong><br>
+                                    {% if expense.SunsetPlan %}
+                                    <strong>Sunset Plan:</strong> {{ expense.SunsetPlan }}<br>
+                                    {% endif %}
+                                    {% if expense.Notes %}
+                                    <strong>Notes:</strong> {{ expense.Notes }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% elif expense.Notes %}
+                            <tr>
+                                <td colspan="9">
+                                    <strong>Notes:</strong> {{ expense.Notes }}
+                                </td>
+                            </tr>
+                            {% endif %}
                         {% endfor %}
                         <!-- Totals Row -->
                         <tr class="table-secondary fw-bold">
