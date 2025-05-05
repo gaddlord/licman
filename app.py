@@ -551,8 +551,23 @@ def budget_treemap():
     
     # Prepare data for the treemap
     treemap_data = []
+    expense_ids = set()  # Track expense IDs to ensure uniqueness
+    
     for expense in expenses:
+        # Make sure all required fields have values
+        if not expense.Product or not expense.category or not expense.group:
+            print(f"Skipping expense with missing data: {expense.ExpenseId}")
+            continue
+            
+        # Skip duplicates
+        if expense.ExpenseId in expense_ids:
+            print(f"Skipping duplicate expense: {expense.ExpenseId}")
+            continue
+            
+        expense_ids.add(expense.ExpenseId)
+        
         treemap_data.append({
+            'id': expense.ExpenseId,  # Add ID for uniqueness
             'product': expense.Product,
             'vendor': expense.Vendor,
             'organization': expense.organization.Name,
@@ -563,6 +578,10 @@ def budget_treemap():
             'approved_value': int(expense.ApprovedValue) if expense.ApprovedValue else 0,
             'approved_value_formatted': format_number(int(expense.ApprovedValue) if expense.ApprovedValue else 0)
         })
+    
+    # Debug: Print the number of expenses and data points
+    print(f"Number of expenses: {len(expenses)}")
+    print(f"Number of treemap data points: {len(treemap_data)}")
     
     # Get current year for footer
     current_year = datetime.datetime.now().year

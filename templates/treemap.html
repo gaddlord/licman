@@ -75,6 +75,12 @@
         console.log("Treemap data:", treemapData);
         
         document.addEventListener('DOMContentLoaded', function() {
+            // Check if we have data
+            if (!treemapData || treemapData.length === 0) {
+                document.getElementById('treemap').innerHTML = '<div class="alert alert-warning">No data available for the selected organization.</div>';
+                return;
+            }
+            
             // Prepare data for treemap
             var labels = [];
             var parents = [];
@@ -91,34 +97,72 @@
             var categoryMap = {};
             var groupMap = {};
             
+            console.log("Starting to process treemap data, length:", treemapData.length);
+            
+            // First pass: collect all categories and groups
             for (var i = 0; i < treemapData.length; i++) {
                 var item = treemapData[i];
+                if (!item.category || !item.group) {
+                    console.log("Skipping item with missing category or group:", item);
+                    continue;
+                }
+                
                 var category = item.category;
                 var group = item.group;
+                var value = item.approved_value || 0;
                 
                 // Add category if it doesn't exist
                 if (!categoryMap[category]) {
                     categoryMap[category] = 0;
-                    labels.push(category);
-                    parents.push("Budget");
-                    values.push(0);
-                    texts.push("Category: " + category);
                 }
                 
-                // Add group if it doesn't exist for this category
+                // Track group within category
                 var groupKey = category + "-" + group;
                 if (!groupMap[groupKey]) {
                     groupMap[groupKey] = 0;
-                    labels.push(group + " (" + category + ")");
-                    parents.push(category);
-                    values.push(0);
-                    texts.push("Group: " + group + "<br>Category: " + category);
                 }
                 
-                // Add product
-                labels.push(item.product);
-                parents.push(group + " (" + category + ")");
-                values.push(item.approved_value);
+                // Accumulate values
+                categoryMap[category] += value;
+                groupMap[groupKey] += value;
+            }
+            
+            // Add categories to the treemap
+            for (var category in categoryMap) {
+                labels.push(category);
+                parents.push("Budget");
+                values.push(categoryMap[category]);
+                texts.push("Category: " + category + "<br>Budget: $" + categoryMap[category]);
+            }
+            
+            // Add groups to the treemap
+            for (var groupKey in groupMap) {
+                var parts = groupKey.split("-");
+                var category = parts[0];
+                var group = parts.slice(1).join("-"); // Handle groups with hyphens in name
+                
+                // Make the label unique by adding a suffix
+                var groupLabel = group + " (" + category + ")";
+                labels.push(groupLabel);
+                parents.push(category);
+                values.push(groupMap[groupKey]);
+                texts.push("Group: " + group + "<br>Category: " + category + "<br>Budget: $" + groupMap[groupKey]);
+            }
+            
+            // Add products
+            for (var i = 0; i < treemapData.length; i++) {
+                var item = treemapData[i];
+                if (!item.category || !item.group) continue;
+                
+                var category = item.category;
+                var group = item.group;
+                var groupLabel = group + " (" + category + ")";
+                
+                // Make product label unique by using the expense ID
+                var productLabel = item.product + " [" + (item.id || i) + "]";
+                labels.push(productLabel);
+                parents.push(groupLabel);
+                values.push(item.approved_value || 0);
                 texts.push(
                     "Product: " + item.product + "<br>" +
                     "Vendor: " + item.vendor + "<br>" +
@@ -126,26 +170,46 @@
                     "Category: " + item.category + "<br>" +
                     "Budget: $" + item.approved_value_formatted
                 );
-                
-                // Update parent values
-                categoryMap[category] += item.approved_value;
-                groupMap[groupKey] += item.approved_value;
             }
             
-            // Update category values
+            console.log("Finished processing data");
+            console.log("Number of labels:", labels.length);
+            console.log("Number of unique categories:", Object.keys(categoryMap).length);
+            console.log("Number of unique groups:", Object.keys(groupMap).length);
+            
+            // Debug: Check for duplicate labels
+            var labelCounts = {};
+            for (var i = 0; i < labels.length; i++) {
+                var label = labels[i];
+                labelCounts[label] = (labelCounts[label] || 0) + 1;
+            }
+            
+            var duplicates = [];
+            for (var label in labelCounts) {
+                if (labelCounts[label] > 1) {
+                    duplicates.push(label + " (" + labelCounts[label] + " occurrences)");
+                }
+            }
+            
+            if (duplicates.length > 0) {
+                console.log("Warning: Found duplicate labels:", duplicates);
+            } else {
+                console.log("No duplicate labels found");
+            }
+            
+            // Debug: Check parent-child relationships
+            var parentChildMap = {};
             for (var i = 0; i < labels.length; i++) {
                 var label = labels[i];
                 var parent = parents[i];
                 
-                if (parent === "Budget" && label !== "Budget") {
-                    values[i] = categoryMap[label];
-                } else if (parent !== "Budget" && parent !== "") {
-                    var groupKey = parent + "-" + label.split(" (")[0];
-                    if (groupMap[groupKey]) {
-                        values[i] = groupMap[groupKey];
-                    }
+                if (!parentChildMap[parent]) {
+                    parentChildMap[parent] = [];
                 }
+                parentChildMap[parent].push(label);
             }
+            
+            console.log("Parent-child relationships:", parentChildMap);
             
             // Create the treemap
             var data = [{
