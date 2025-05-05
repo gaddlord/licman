@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organization Breakdown - FireOps Budget Tracker</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='ico/favicon.ico') }}" type="image/x-icon">
+</head>
+<body>
+    <header class="p-3" style="background: linear-gradient(to right, #f8f9fa, #e9ecef);">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center">
+                        <img src="{{ url_for('static', filename='svg/logo.svg') }}" alt="Logo" class="me-3" style="height: 40px;">
+                        <h1 class="mb-0 text-dark">FireOps Budget Tracker</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Organization Breakdown</h5>
+                        <div>
+                            <a href="{{ url_for('index') }}" class="btn btn-primary me-2">
+                                Home
+                            </a>
+                            <a href="{{ url_for('renewals') }}" class="btn btn-primary me-2">
+                                View Renewals
+                            </a>
+                            <a href="{{ url_for('budget_treemap') }}" class="btn btn-primary me-2">
+                                Budget Treemap
+                            </a>
+                            <a href="{{ url_for('help_page') }}" class="btn btn-info me-2">
+                                Need Help?
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ url_for('org_breakdown') }}" method="GET" class="mb-4">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="year" class="form-label">Year</label>
+                                    <select class="form-select" id="year" name="year">
+                                        {% for year in years %}
+                                            <option value="{{ year.YearId }}" {% if selected_year == year.YearId %}selected{% endif %}>{{ year.YearId }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                
+                                <!-- Apply Filters Button -->
+                                <div class="col-12 mt-3">
+                                    <button type="submit" class="btn btn-primary">Apply Filters</button>
+                                    <a href="{{ url_for('org_breakdown') }}" class="btn btn-secondary">Reset</a>
+                                </div>
+                            </div>
+                        </form>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <h5>Planned Budget by Organization</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="planned-pie-chart" style="width: 100%; height: 400px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <h5>Actual Expenses by Organization</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="actual-pie-chart" style="width: 100%; height: 400px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>Organization Breakdown Summary</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Organization</th>
+                                                        <th>Planned Budget</th>
+                                                        <th>Actual Expenses</th>
+                                                        <th>Difference</th>
+                                                        <th>% of Total Budget</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for org in org_data %}
+                                                    <tr>
+                                                        <td>{{ org.name }}</td>
+                                                        <td>${{ org.planned_formatted }}</td>
+                                                        <td>${{ org.actual_formatted }}</td>
+                                                        <td>
+                                                            {% if org.difference > 0 %}
+                                                            <span class="text-success">${{ org.difference_formatted }}</span>
+                                                            {% else %}
+                                                            <span class="text-danger">${{ org.difference_formatted }}</span>
+                                                            {% endif %}
+                                                        </td>
+                                                        <td>{{ org.percentage }}%</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                    <tr class="font-weight-bold">
+                                                        <td>Total</td>
+                                                        <td>${{ total_planned_formatted }}</td>
+                                                        <td>${{ total_actual_formatted }}</td>
+                                                        <td>
+                                                            {% if total_difference > 0 %}
+                                                            <span class="text-success">${{ total_difference_formatted }}</span>
+                                                            {% else %}
+                                                            <span class="text-danger">${{ total_difference_formatted }}</span>
+                                                            {% endif %}
+                                                        </td>
+                                                        <td>100%</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="p-3 mt-5" style="background: linear-gradient(to right, #f8f9fa, #e9ecef);">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0 text-dark">&copy; {{ current_year }} AppFire LLC. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the data passed from Flask
+            var orgData = JSON.parse('{{ org_data|tojson }}');
+            
+            if (!orgData || orgData.length === 0) {
+                console.error("No organization data available");
+                return;
+            }
+            
+            // Prepare data for planned budget pie chart
+            var plannedLabels = [];
+            var plannedValues = [];
+            var plannedColors = [];
+            
+            // Prepare data for actual expenses pie chart
+            var actualLabels = [];
+            var actualValues = [];
+            var actualColors = [];
+            
+            // Color palette
+            var colors = [
+                '#4e73df', '#1cc88a', '#36b9cc', '#f6c23e', '#e74a3b',
+                '#5a5c69', '#858796', '#6610f2', '#6f42c1', '#fd7e14',
+                '#20c9a6', '#3abaf4', '#f8f9fc', '#d1d3e2', '#b7b9cc'
+            ];
+            
+            // Process data for charts
+            for (var i = 0; i < orgData.length; i++) {
+                var org = orgData[i];
+                var colorIndex = i % colors.length;
+                
+                // Planned budget data
+                plannedLabels.push(org.name);
+                plannedValues.push(org.planned);
+                plannedColors.push(colors[colorIndex]);
+                
+                // Actual expenses data
+                actualLabels.push(org.name);
+                actualValues.push(org.actual);
+                actualColors.push(colors[colorIndex]);
+            }
+            
+            // Create planned budget pie chart
+            var plannedData = [{
+                type: 'pie',
+                labels: plannedLabels,
+                values: plannedValues,
+                marker: {
+                    colors: plannedColors
+                },
+                textinfo: 'label+percent',
+                hoverinfo: 'label+value+percent',
+                hole: 0.4
+            }];
+            
+            var plannedLayout = {
+                showlegend: true,
+                legend: {
+                    orientation: 'h',
+                    y: -0.1
+                },
+                margin: {
+                    l: 20,
+                    r: 20,
+                    t: 30,
+                    b: 0
+                },
+                annotations: [{
+                    font: {
+                        size: 14
+                    },
+                    showarrow: false,
+                    text: 'Planned',
+                    x: 0.5,
+                    y: 0.5
+                }]
+            };
+            
+            Plotly.newPlot('planned-pie-chart', plannedData, plannedLayout, {responsive: true});
+            
+            // Create actual expenses pie chart
+            var actualData = [{
+                type: 'pie',
+                labels: actualLabels,
+                values: actualValues,
+                marker: {
+                    colors: actualColors
+                },
+                textinfo: 'label+percent',
+                hoverinfo: 'label+value+percent',
+                hole: 0.4
+            }];
+            
+            var actualLayout = {
+                showlegend: true,
+                legend: {
+                    orientation: 'h',
+                    y: -0.1
+                },
+                margin: {
+                    l: 20,
+                    r: 20,
+                    t: 30,
+                    b: 0
+                },
+                annotations: [{
+                    font: {
+                        size: 14
+                    },
+                    showarrow: false,
+                    text: 'Actual',
+                    x: 0.5,
+                    y: 0.5
+                }]
+            };
+            
+            Plotly.newPlot('actual-pie-chart', actualData, actualLayout, {responsive: true});
+        });
+    </script>
+</body>
+</html>

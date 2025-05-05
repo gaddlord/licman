@@ -529,21 +529,17 @@ def renewals():
 
 @app.route('/budget_treemap')
 def budget_treemap():
-    # Get the selected organization filter
+    # Get the selected organization from the query parameters
     selected_organization = request.args.get('organization', 'all')
     
     # Get all organizations for the filter dropdown
     organizations = Organization.query.all()
     
-    # Start with base query
-    query = Expense.query
-    
-    # Apply organization filter if selected
-    if selected_organization and selected_organization != 'all':
-        query = query.filter_by(OrganizationId=selected_organization)
-    
-    # Get expenses
-    expenses = query.all()
+    # Get all expenses
+    if selected_organization == 'all':
+        expenses = Expense.query.all()
+    else:
+        expenses = Expense.query.filter_by(OrganizationId=selected_organization).all()
     
     # Get all categories and groups for the 2D treemap
     categories = Category.query.all()
@@ -592,6 +588,82 @@ def budget_treemap():
                           categories=categories,
                           groups=groups,
                           selected_organization=selected_organization,
+                          current_year=current_year)
+
+@app.route('/org_breakdown')
+def org_breakdown():
+    # Get the selected year from the query parameters
+    selected_year = request.args.get('year', datetime.datetime.now().year)
+    
+    # Get all years for the filter dropdown
+    years = Years.query.all()
+    
+    # Get all organizations
+    organizations = Organization.query.all()
+    
+    # Prepare data for the organization breakdown
+    org_data = []
+    total_planned = 0
+    total_actual = 0
+    
+    for org in organizations:
+        # Get all expenses for this organization and selected year
+        expenses = Expense.query.filter_by(OrganizationId=org.OrganizationId, YearId=selected_year).all()
+        
+        # Calculate planned budget (ApprovedValue) and actual expenses
+        planned_budget = sum(expense.ApprovedValue for expense in expenses if expense.ApprovedValue)
+        
+        # Calculate actual expenses (sum of monthly actuals)
+        actual_expenses = 0
+        for expense in expenses:
+            monthly_actuals = [
+                expense.ActualJan or 0, expense.ActualFeb or 0, expense.ActualMar or 0,
+                expense.ActualApr or 0, expense.ActualMay or 0, expense.ActualJun or 0,
+                expense.ActualJul or 0, expense.ActualAug or 0, expense.ActualSep or 0,
+                expense.ActualOct or 0, expense.ActualNov or 0, expense.ActualDec or 0
+            ]
+            actual_expenses += sum(monthly_actuals)
+        
+        # Add to totals
+        total_planned += planned_budget
+        total_actual += actual_expenses
+        
+        # Add organization data
+        org_data.append({
+            'name': org.Name,
+            'planned': planned_budget,
+            'actual': actual_expenses,
+            'difference': planned_budget - actual_expenses,
+            'planned_formatted': format_number(int(planned_budget)),
+            'actual_formatted': format_number(int(actual_expenses)),
+            'difference_formatted': format_number(int(planned_budget - actual_expenses))
+        })
+    
+    # Calculate percentages of total budget
+    for org in org_data:
+        if total_planned > 0:
+            org['percentage'] = round((org['planned'] / total_planned) * 100, 1)
+        else:
+            org['percentage'] = 0
+    
+    # Format totals
+    total_planned_formatted = format_number(int(total_planned))
+    total_actual_formatted = format_number(int(total_actual))
+    total_difference_formatted = format_number(int(total_planned - total_actual))
+    
+    # Get current year for footer
+    current_year = datetime.datetime.now().year
+    
+    return render_template('org_breakdown.html',
+                          org_data=org_data,
+                          years=years,
+                          selected_year=selected_year,
+                          total_planned=total_planned,
+                          total_actual=total_actual,
+                          total_difference=total_planned - total_actual,
+                          total_planned_formatted=total_planned_formatted,
+                          total_actual_formatted=total_actual_formatted,
+                          total_difference_formatted=total_difference_formatted,
                           current_year=current_year)
 
 if __name__ == '__main__':
