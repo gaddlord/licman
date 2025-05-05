@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Treemap - FireOps Budget Tracker</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='ico/favicon.ico') }}">
+    <!-- Plotly.js for treemap visualization -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div class="container mt-4">
+        <a href="{{ url_for('index') }}">
+            <img src="{{ url_for('static', filename='svg/logo.svg') }}" alt="Logo" style="height:40px;">
+        </a>
+        <h1 class="mb-4 text-end">LicMan - Budget Treemap</h1>
+        
+        <!-- Filters Section -->
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Filter</h5>
+            </div>
+            <div class="card-body">
+                <form action="{{ url_for('budget_treemap') }}" method="get" class="row g-3">
+                    <!-- Organization Filter -->
+                    <div class="col-md-6">
+                        <label for="organization" class="form-label">Organization</label>
+                        <select name="organization" id="organization" class="form-select">
+                            <option value="all" {% if selected_organization == 'all' %}selected{% endif %}>All Organizations</option>
+                            {% for org in organizations %}
+                            <option value="{{ org.OrganizationId }}" {% if selected_organization == org.OrganizationId %}selected{% endif %}>
+                                {{ org.Name }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <!-- Apply Filters Button -->
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Apply Filter</button>
+                        <a href="{{ url_for('budget_treemap') }}" class="btn btn-secondary">Reset</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="mb-0">Budget Treemap</h5>
+            <div>
+                <a href="{{ url_for('index') }}" class="btn btn-primary me-2">
+                    Back to Dashboard
+                </a>
+                <a href="{{ url_for('renewals') }}" class="btn btn-primary me-2">
+                    View Renewals
+                </a>
+            </div>
+        </div>
+        
+        <!-- Treemap Container -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <div id="treemap" style="width:100%; height:700px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Pass the data from Python to JavaScript as a JSON object
+        var treemapData = JSON.parse('{{ treemap_data|tojson|safe }}');
+        
+        // Debug: Log the data to console
+        console.log("Treemap data:", treemapData);
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Prepare data for treemap
+            var labels = [];
+            var parents = [];
+            var values = [];
+            var texts = [];
+            
+            // Add root node
+            labels.push("Budget");
+            parents.push("");
+            values.push(0);
+            texts.push("Total Budget");
+            
+            // Create category nodes
+            var categoryMap = {};
+            var groupMap = {};
+            
+            for (var i = 0; i < treemapData.length; i++) {
+                var item = treemapData[i];
+                var category = item.category;
+                var group = item.group;
+                
+                // Add category if it doesn't exist
+                if (!categoryMap[category]) {
+                    categoryMap[category] = 0;
+                    labels.push(category);
+                    parents.push("Budget");
+                    values.push(0);
+                    texts.push("Category: " + category);
+                }
+                
+                // Add group if it doesn't exist for this category
+                var groupKey = category + "-" + group;
+                if (!groupMap[groupKey]) {
+                    groupMap[groupKey] = 0;
+                    labels.push(group + " (" + category + ")");
+                    parents.push(category);
+                    values.push(0);
+                    texts.push("Group: " + group + "<br>Category: " + category);
+                }
+                
+                // Add product
+                labels.push(item.product);
+                parents.push(group + " (" + category + ")");
+                values.push(item.approved_value);
+                texts.push(
+                    "Product: " + item.product + "<br>" +
+                    "Vendor: " + item.vendor + "<br>" +
+                    "Group: " + item.group + "<br>" +
+                    "Category: " + item.category + "<br>" +
+                    "Budget: $" + item.approved_value_formatted
+                );
+                
+                // Update parent values
+                categoryMap[category] += item.approved_value;
+                groupMap[groupKey] += item.approved_value;
+            }
+            
+            // Update category values
+            for (var i = 0; i < labels.length; i++) {
+                var label = labels[i];
+                var parent = parents[i];
+                
+                if (parent === "Budget" && label !== "Budget") {
+                    values[i] = categoryMap[label];
+                } else if (parent !== "Budget" && parent !== "") {
+                    var groupKey = parent + "-" + label.split(" (")[0];
+                    if (groupMap[groupKey]) {
+                        values[i] = groupMap[groupKey];
+                    }
+                }
+            }
+            
+            // Create the treemap
+            var data = [{
+                type: "treemap",
+                labels: labels,
+                parents: parents,
+                values: values,
+                text: texts,
+                hoverinfo: "text",
+                marker: {
+                    colorscale: 'Viridis'
+                }
+            }];
+            
+            var layout = {
+                title: 'Budget Allocation Treemap',
+                margin: {
+                    l: 25,
+                    r: 25,
+                    b: 25,
+                    t: 50
+                }
+            };
+            
+            Plotly.newPlot('treemap', data, layout);
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <footer class="mt-4 text-center">
+        <p>&copy; {{ current_year }} AppFire LLC. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

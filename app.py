@@ -527,6 +527,54 @@ def renewals():
                           expenses=expenses,
                           current_year=current_year)
 
+@app.route('/budget_treemap')
+def budget_treemap():
+    # Get the selected organization filter
+    selected_organization = request.args.get('organization', 'all')
+    
+    # Get all organizations for the filter dropdown
+    organizations = Organization.query.all()
+    
+    # Start with base query
+    query = Expense.query
+    
+    # Apply organization filter if selected
+    if selected_organization and selected_organization != 'all':
+        query = query.filter_by(OrganizationId=selected_organization)
+    
+    # Get expenses
+    expenses = query.all()
+    
+    # Get all categories and groups for the 2D treemap
+    categories = Category.query.all()
+    groups = Groups.query.all()
+    
+    # Prepare data for the treemap
+    treemap_data = []
+    for expense in expenses:
+        treemap_data.append({
+            'product': expense.Product,
+            'vendor': expense.Vendor,
+            'organization': expense.organization.Name,
+            'group': expense.group.Name,
+            'category': expense.category.Name,
+            'group_id': expense.GroupId,
+            'category_id': expense.CategoryId,
+            'approved_value': int(expense.ApprovedValue) if expense.ApprovedValue else 0,
+            'approved_value_formatted': format_number(int(expense.ApprovedValue) if expense.ApprovedValue else 0)
+        })
+    
+    # Get current year for footer
+    current_year = datetime.datetime.now().year
+    
+    return render_template('treemap.html',
+                          treemap_data=treemap_data,
+                          organizations=organizations,
+                          categories=categories,
+                          groups=groups,
+                          selected_organization=selected_organization,
+                          current_year=current_year)
+
 if __name__ == '__main__':
     port = os.getenv('LICMAN_PORT')
     app.run(debug=True, port=port)
