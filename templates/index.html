@@ -127,7 +127,11 @@
                                 <td class="text-end">{{ expense.NumberOfUnits }}</td>
                                 <td class="text-end">${{ expense.ApprovedValue | round | int | format_number }}</td>
                                 <td class="text-end">
-                                    ${{ expense.ContractedValue | round | int | format_number }}
+                                    {% if expense.ProcurementUrl %}
+                                        <a href="{{ expense.ProcurementUrl }}" target="_blank">${{ expense.ContractedValue | round | int | format_number }}</a>
+                                    {% else %}
+                                        ${{ expense.ContractedValue | round | int | format_number }}
+                                    {% endif %}
                                     {% if expense.ContractedValue is defined and expense.ContractedValue != None and expense.ContractedValue != '' and expense.ContractedValue != 0 %}
                                         {% set diff = (expense.ContractedValue | int - expense.ApprovedValue | default(0) | int) %}
                                         {% if diff != 0 %}

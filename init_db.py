@@ -21,6 +21,7 @@ def init_db():
         accounts = [
             Accounts(AccountId=6103, Name="Staff Training"),
             Accounts(AccountId=6207, Name="Charitable Contributions"),
+            Accounts(AccountId=6400, Name="Travel"),
             Accounts(AccountId=6502, Name='Peripherals and Accessories'),
             Accounts(AccountId=6503, Name='Software Expense'),
             Accounts(AccountId=6504, Name='Cloud Services'),
