@@ -135,7 +135,7 @@
                                 <label for="approved_value" class="form-label">Approved Budget</label>
                                 <div class="input-group">
                                     <span class="input-group-text">$</span>
-                                    <input type="number" class="form-control" id="approved_value" name="approved_value" step="0.01" min="0" required>
+                                    <input type="number" class="form-control" id="approved_value" name="approved_value" step="0.01" min="0">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -463,6 +463,7 @@
             const monthlyBreakdownSection = document.getElementById('monthly-breakdown-section');
             const withBreakdownCheckbox = document.getElementById('with_breakdown');
             const standardBudgetSection = document.getElementById('standard-budget-section');
+            const approvedValueInput = document.getElementById('approved_value');
             
             // Function to toggle sections visibility
             function toggleSections() {
@@ -497,9 +498,11 @@
                 if (withBreakdownCheckbox.checked) {
                     monthlyBreakdownSection.classList.remove('d-none');
                     standardBudgetSection.classList.add('d-none');
+                    approvedValueInput.required = false;
                 } else {
                     monthlyBreakdownSection.classList.add('d-none');
                     standardBudgetSection.classList.remove('d-none');
+                    approvedValueInput.required = true;
                 }
             }
             
