@@ -1,0 +1,199 @@
+"ExpenseId","YearId","AccountId","OrganizationId","GroupId","CategoryId","Vendor","Product","LicenseModelId","CostPerUnit","Sunset","SunsetPlan","Notes","NumberOfUnits","ApprovedValue","ContractedValue","ProcurementUrl","EmployeeName","EmployeeAnnualSalary","EmployeeAnnualBonus","EmployeeAnnualBenefits","EmployeeTargetStartDate","TripName","TripNumberOfPassengers","TrainingName","TrainingNumberOfTrainees","WithBreakdown","ApprovedJan","ApprovedFeb","ApprovedMar","ApprovedApr","ApprovedMay","ApprovedJun","ApprovedJul","ApprovedAug","ApprovedSep","ApprovedOct","ApprovedNov","ApprovedDec","ActualJan","ActualFeb","ActualMar","ActualApr","ActualMay","ActualJun","ActualJul","ActualAug","ActualSep","ActualOct","ActualNov","ActualDec","Renewal"
+2,"2025",6503,DVO,COS,SW,Docker Inc.,Docker,US,288.0,0,"","Docker desktop is an essential development tool. Used to be 300 users in FY24. Increased to 310.
+Discount of 26.20% applied.",310,89280.0,65887.0,https://appfire.coupahost.com/contracts/show/696#summary,"",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,"2026-01-17"
+3,"2025",6503,ENG,COS,SW,SonarSource SA,SonarCube Cloud,LC,0.0,1,These SC accounts should be shut down in favor of SQ at some point.,"2 Accounts (GitHub and Bitbucket).
+These SC accounts should be shut down in favor of SQ at some point.
+Coupa request not visible.",0,3600.0,3000.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+4,"2025",6503,DVO,COS,SW,Sonatype,Nexus,US,0.0,0,"","This is our artifactory. 3yr prepaid PO.
+Paid until Sep 2025
+Coupa request not visible.",300,29750.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,"2025-09-01"
+5,"2025",6503,ENG,COS,SW,Microsoft,GitHub Enterprise,MS,17.85,0,"","Prev year it was 350 users, $74970 as budget.
+Bumping to 400 per objectives to move to GH.
+Cost decreased from $19.25 to $17.84 per user.
+Coupa request is not vivible.",400,85680.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+6,"2025",6503,ENG,COS,SW,JetBrains,ItelliJ Idea,US,527.0,0,"","Essential IDE tool for majority of Engineering.
+It was 300 users or $158'136 in FY24.
+It would be interestig to see if the VSCode users do need it.
+Assuming growth of developer headcount by 60%.",310,163370.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+7,"2025",6503,DVO,COS,SW,Atlassian,Bitbucket,MS,5.5,0,"","Was 400 users at $26'400 in FY24
+Free Atlassian Partner Acct?",410,27060.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+8,"2025",6503,DVO,COS,SW,Atlassian,OpsGenie,MS,0.0,0,"","With incident management powered by Opsgenie
+Licesing: https://www.atlassian.com/licensing/opsgenie#opsgenie-licensing",0,0.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+9,"2025",6503,ENG,COS,SW,Atlassian,Status Page (AppFire Unified),US,0.0,0,"",FY24 $18'000,0,23000.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+10,"2025",6503,ENG,COS,SW,Atlasian,Bamboo (Build Minutes),M,0.0,0,"","This expense was forgotten for budgeting in FY25.
+Atlassian provides free licenses upon request but why we paid $70K",0,0.0,70000.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+11,"2025",6503,ENG,COS,SW,Microsoft,GitHub Copilot,MS,19.0,0,"","Updated to 300 in anticipation of wider adoption and pilot of Cursor (competitor) costs.
+Was 100 users for $22'800 in FY24",300,68400.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+12,"2025",6503,ENG,COS,SW,Microsoft,GitHub Actions,M,0.0,0,"","Anticipate migrations from Bamboo, Jenkins and Pipelines.
+FY was $9'600.
+Anticipate a doubling of Actions minutes to 200k (likely 20K was meant).",0,19200.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+13,"2025",6503,ENG,COS,SW,Sparkpost,Email Delivery Service,FA,0.0,0,"",Was $1000 in FY24,0,1000.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+14,"2025",6503,ENG,COS,SW,Ngrok LLC,Ngrok,AS,240.0,1,Can be replaced by Open Source ala https://github.com/fatedier/frp ,"Reverse proxy.
+Was $43'200 in FY24.
+Signed with 10% discount.",200,50000.0,43200.0,https://appfire.coupahost.com/contracts/show/778#summary,"",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,"2026-03-03"
+15,"2025",6503,ENG,COS,SW,SonarSource SA,SonarCube Cloud (AppFire Unified),LC,0.0,0,"","Decided to skip bying this year.
+We had an offer for 5M Lines of Code for 2 years contract
+SonarQube Cloud Enterprise Plan up to 5M LOCs, with Support - Year 1 - Standard SonarQube Cloud Enterprise discount for this purchase only
+SonarQube Cloud Enterprise Plan up to 5M LOCs, with Support - Year 2 - Standard SonarQube Cloud Enterprise discount for this purchase only
+Total: $129'600",5000000,125000.0,1.0,https://not-submitted-since-cancelled,"",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+16,"2025",6503,ENG,COS,SW,Jellyfish,Jellyfish,AS,0.0,0,"",Developer Experience and Engineering Metrics,0,125000.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+17,"2025",6503,ENG,COS,SW,Jellyfish,Jellyfish (Expansion),AS,0.0,0,"",Anticipated license expansion per Jeff,50,20800.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+18,"2025",6503,ENG,COS,SW,MuchSkills,MuchSkills,AS,0.0,0,"","",400,13000.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+19,"2025",6504,ENG,COS,INF,RedisGreen,RedisGreen,AS,0.0,1,Do we still need it in case we move away from Heroku?,Was FY24 $5000,0,5000.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+20,"2025",6503,ENG,COS,SW,NewRelic Inc.,NewRelic (Nextup),US,0.0,1,Shall we consider a Sunset?,"",0,48000.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+21,"2025",6503,ENG,COS,SW,Datadog,Datadog (Big Picture),AS,0.0,1,Shall we migrate?,"",0,12000.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+22,"2025",6503,DVO,COS,SW,MongoDB,MongoDB Atlas,FA,0.0,1,Shall we consider a migration to AWS?,$2000 from last year was just a small dev MongoDB account. The new number represents consolidation of all Engineering brands into MongoDB Atlas. It should be less than the sum of 2024's separate accounts.,0,136000.0,96283.0,https://appfire.coupahost.com/contracts/show/774#summary,"",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,"2026-04-30"
+23,"2025",6504,DVO,COS,INF,Heroku,Heroku Enterprise Account,AS,0.0,1,"There is a migration plan for many of the big apps such as Panorama, Panorama Lite, Dashboard Hub, JMWE","Essential IaaS for 20+ cloud apps.
+It might be best to split down this account by months and project the actual cost savings when Panorama and Panorma Lite are migrated.
+Renews in Aug (early Q3) - Reflects Aug 24-25 contract.",0,94300.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,"2025-08-01"
+24,"2025",6504,DVO,COS,INF,AWS,AWS - Enterprise Support,FA,0.0,0,"","ESP provides umbrella Enterprise support & TAM consultation across any Appfire AWS account.
+We decided to skip this year signing since the Enterprise support without Enterprise Discount Plan will cost us around $400K and we cannot commit right now since the Forge migrations will reduece the AWS costs.",0,160000.0,1.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+25,"2025",6504,DVO,COS,INF,AWS,"AWS (Engineering - NO InfoSec, NO Platform)",PG,0.0,0,"","The FY25 Total was $2'788'205.07 for FY24 was $2'339'441.73
+Reflects a min of 10 & 12% growth factors on non-prod and prod accounts respectively.",4,2788200.0,3135800.0,https://g-ae19e3115d.grafana-workspace.us-east-1.amazonaws.com/d/6_p1072Nz/global-cost-tracker?orgId=1,"",0.0,0.0,0.0,,"",0,"",0,1,232350.0,232350.0,232350.0,232350.0,232350.0,232350.0,232350.0,232350.0,232350.0,232350.0,232350.0,232350.0,258000.0,240000.0,291000.0,488000.0,232350.0,232350.0,232350.0,232350.0,232350.0,232350.0,232350.0,232350.0,
+26,"2025",6504,DVO,COS,INF,AWS,AWS (Engineering - Platform),PG,0.0,0,"","The Total for FY25 is $656'228.31 and FY24 $373'633.71
+See ""Cloud - Platform"" tab in DevOps 2025 Engineering Budget Planner",0,656220.0,437484.0,"","",0.0,0.0,0.0,,"",0,"",0,1,54685.0,54685.0,54685.0,54685.0,54685.0,54685.0,54685.0,54685.0,54685.0,54685.0,54685.0,54685.0,1.0,1.0,1.0,1.0,54685.0,54685.0,54685.0,54685.0,54685.0,54685.0,54685.0,54685.0,
+27,"2025",6504,DVO,COS,INF,AWS,AWS - Compliance-Mandated Backup Costs,PG,0.0,0,"","Planned FY25 $120'323.89
+InfoSec ISO/SOC2 backup compliance mandates
+Special line item to estimate increase storage costs due to InfoSec compliance-mandated backup and retention policies. See Backup Cost Allocations tab for account-level details.",0,120324.0,80220.0,"","",0.0,0.0,0.0,,"",0,"",0,1,10027.0,10027.0,10027.0,10027.0,10027.0,10027.0,10027.0,10027.0,10027.0,10027.0,10027.0,10027.0,1.0,1.0,1.0,1.0,10027.0,10027.0,10027.0,10027.0,10027.0,10027.0,10027.0,10027.0,
+28,"2025",6504,DVO,COS,INF,AWS,AWS - Compliance-Mandated CloudTrail & GD Costs,PG,0.0,0,"","Planned FY25 $108'299.76
+InfoSec O11y mandates
+Special line item to estimate logging costs due to InfoSec mandated logging. See Cost Allocations tab for account-level details.",0,108228.0,72152.0,"","",0.0,0.0,0.0,,"",0,"",0,1,9019.0,9019.0,9019.0,9019.0,9019.0,9019.0,9019.0,9019.0,9019.0,9019.0,9019.0,9019.0,0.0,0.0,0.0,0.0,9019.0,9019.0,9019.0,9019.0,9019.0,9019.0,9019.0,9019.02,
+29,"2025",6504,DVO,COS,INF,Google,GCP (Prod & DTS) Accounts,PG,0.0,0,"","Planned for FY25 $241'725.57
+For FY24 was $216'817.85
+We don't have visibility into ops cost for GCP. Expect teams to still submit their own",0,241716.0,224644.0,https://g-ae19e3115d.grafana-workspace.us-east-1.amazonaws.com/d/6_p1072Nz/global-cost-tracker?orgId=1,"",0.0,0.0,0.0,,"",0,"",0,1,20143.0,20143.0,20143.0,20143.0,20143.0,20143.0,20143.0,20143.0,20143.0,20143.0,20143.0,20143.0,15300.0,14800.0,16700.0,16700.0,20143.0,20143.0,20143.0,20143.0,20143.0,20143.0,20143.0,20143.0,
+30,"2025",6504,DVO,COS,INF,Google,GCP - Compliance-Mandated Backup Costs,PG,0.0,0,"","Planned FY $12'086.28
+Reflects a 5% additional cost for increases to storage",0,12084.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,1,1007.0,1007.0,1007.0,1007.0,1007.0,1007.0,1007.0,1007.0,1007.0,1007.0,1007.0,1007.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+31,"2025",6504,DVO,COS,INF,Google,GCP - Compliance-Mandated (CloudAudit) Costs,PG,0.0,0,"","Planned FY $12'086.28
+Reflects a 5% additional cost for audit data transfer increases",0,12084.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,1,1007.0,1007.0,1007.0,1007.0,1007.0,1007.0,1007.0,1007.0,1007.0,1007.0,1007.0,1007.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+32,"2025",6504,DVO,COS,INF,Microsoft,Azure (Prod & DTS) Account,PG,0.0,0,"","Planned FY25 $319'665.66
+Was FY24 $266'388.05
+We don't have visibility into ops cost for AzDO. Expect teams to still submit their own",0,319656.0,273304.0,https://g-ae19e3115d.grafana-workspace.us-east-1.amazonaws.com/d/6_p1072Nz/global-cost-tracker?orgId=1,"",0.0,0.0,0.0,,"",0,"",0,1,26638.0,26638.0,26638.0,26638.0,26638.0,26638.0,26638.0,26638.0,26638.0,26638.0,26638.0,26638.0,16200.0,14000.0,14900.0,15100.0,26638.0,26638.0,26638.0,26638.0,26638.0,26638.0,26638.0,26638.0,
+33,"2025",6504,DVO,COS,INF,Microsoft,Azure - Compliance-Mandated Backup Costs,PG,0.0,0,"","Planned FY25 $15'983.28
+Reflects a 5% additional cost for increases to storage",0,15984.0,10656.0,"","",0.0,0.0,0.0,,"",0,"",0,1,1332.0,1332.0,1332.0,1332.0,1332.0,1332.0,1332.0,1332.0,1332.0,1332.0,1332.0,1332.0,0.0,0.0,0.0,0.0,1332.0,1332.0,1332.0,1332.0,1332.0,1332.0,1332.0,1332.0,
+34,"2025",6504,DVO,COS,INF,Microsoft,Azure - Compliance-Mandated (Cloud Analytics) Costs,PG,0.0,0,"","Planned FY25 $15'983.28
+Reflects a 5% additional cost for increases to storage",0,15984.0,10656.0,"","",0.0,0.0,0.0,,"",0,"",0,1,1332.0,1332.0,1332.0,1332.0,1332.0,1332.0,1332.0,1332.0,1332.0,1332.0,1332.0,1332.0,0.0,0.0,0.0,0.0,1332.0,1332.0,1332.0,1332.0,1332.0,1332.0,1332.0,1332.0,
+35,"2025",6503,ENG,COS,SW,Microsoft,"Azure AI (Canned Responses, Chat for JSM, products integrated with AI Service)",FA,0.0,0,"","AI Service, taking into consideration growing adoption at Appfire (start with Canned Responses and Chat for JSM, other products to follow)
+- Jan - Mar 2025 - 2k USD per month (2 products are ready to go live with AI in production, one of them is Canned Responses)
+- Apr - Jun 2025 - 5k USD per month (assuming we have more products implementing AI and launching in prod)
+- Jul - Sep 2025 - 9k USD per month (AI usage accelerates, more products release AI features)
+- Oct - Dec 2025 - 17k USD per ",0,99000.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+36,"2025",6503,ITO,G&A,SW,Insight Direct USA,Google Workspace (Req 5335),US,0.0,0,"","",0,291000.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,1,23500.0,23500.0,23500.0,23500.0,23500.0,23500.0,25000.0,25000.0,25000.0,25000.0,25000.0,25000.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,"2026-07-01"
+37,"2025",6504,ITO,COS,INF,Google,FOTC (Fly on the Cloud),US,0.0,0,"","Google Cloud Spartez - DevOps (Billing) - All billing for Google through FOTC
+We would need more details for that.",0,265908.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+38,"2025",6503,ITO,G&A,SW,Salesforce,Slack,US,0.0,0,"","Slack reduced from $320 to $233.325.
+AlexT: once we have new contract/costs let me know so we can update accordingly. Going to Grid? May 2025 SFDC Renewal (7-8 different type of licenses which we may or may not need (which and how many)- redistribute funds to Grid and Slack AI as a possibility)",0,233325.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,"2025-11-30"
+39,"2025",6503,ITO,G&A,SW,Omnissa,WorkspaceONE,US,0.0,0,"","BOYD for the Unified Endpoint Management InfoSec project
+Originally scoped for 1'000 licenses for 2 devices
+Downscoped to 50 users with 1 device and around $57'000
+The actual value TBC",0,198000.0,57000.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+40,"2025",6503,ITO,G&A,SW,Zruli,Zruli,US,0.0,0,"","Check if we already paid something.
+Likely to replace with internal tool LicMan.
+Okay (may change to Zylo 2H'25). Likely we don't do Zylo and rely on out automation.
+Carey Rutigliano: from Julia Egolf 10/7/24:
+For Zluri - tomorrow Mariola will correct the prepaid schedule we have to expense the current contract through June next year.  The P&L expense will be 3,416.28 per month (61,493 for the whole 18 months).  This is what you should have in the budget for Jan-June 2025",0,68496.0,20496.0,"","",0.0,0.0,0.0,,"",0,"",0,1,3416.0,3416.0,3416.0,3416.0,3416.0,3416.0,8000.0,8000.0,8000.0,8000.0,8000.0,8000.0,3416.0,3416.0,3416.0,3416.0,3416.0,3416.0,0.0,0.0,0.0,0.0,0.0,0.0,"2025-06-01"
+41,"2025",6503,ITO,G&A,SW,Zoho Corporation,Managed Engine,US,0.0,0,"",Currently using MDM (Managed Engine). Renewed on 30.04.25 for $24105 after license optimization,0,30000.0,24105.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,"2026-04-30"
+42,"2025",6503,ITO,COS,SW,Figma,Figma,US,0.0,0,"",To add the Couap and Renewal date,0,80004.0,65100.0,https://appfire.coupahost.com/requisition_headers/6233,"",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,"2026-05-15"
+43,"2025",6503,ITO,G&A,SW,OpenAI Inc.,CharGPT Ent.,US,0.0,0,"",Increased by 50 users (Chat GPT) Enterprise version,0,144000.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,"2026-02-25"
+44,"2025",6503,ITO,G&A,SW,Monday,Monday.com,US,0.0,0,"","",0,106800.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,"2026-03-31"
+45,"2025",6503,ITO,G&A,SW,BetterCloud,BetterCloud,MS,0.0,1,Going away in July,Need to the actual expenses for Jan..Apr.,0,106500.0,106500.0,"","",0.0,0.0,0.0,,"",0,"",0,1,16500.0,16500.0,16500.0,17000.0,17000.0,17000.0,6000.0,0.0,0.0,0.0,0.0,0.0,16500.0,16500.0,16500.0,17000.0,17000.0,17000.0,6000.0,0.0,0.0,0.0,0.0,0.0,
+46,"2025",6503,ITO,G&A,SW,"Zoom, Inc.",Zoom,US,0.0,0,"",We would need to revoke Pro licenses from DevOps and ITOps and do not provide such to new starters in order to fit the budget.,0,98400.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,"2025-06-15"
+47,"2025",6503,ITO,G&A,SW,Adobe,Adobe (Creative Suite),US,0.0,0,"","",0,66000.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,"2027-02-14"
+48,"2025",6503,ITO,G&A,SW,CTI,PingOne,US,0.0,0,"","",0,60000.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,"2025-09-29"
+49,"2025",6503,ITO,G&A,SW,"OpenAI, Inc.",ChatGPT Ent. (Additional Licenses),US,0.0,0,"","11/25/CR - having ongoing discussions with Kelly, Vasuraj and team to (1) confirm how many licenses needed (2) who will own the relationship. Should have an answer soon. / MOVED to ITOps per discussion with Kelly and Fila (Slack 12/2/24 from Kelly).
+Did they procure this via Kelly? Sent a Slack/note to Vasuraj and Kelly to confirm (Kelly responded 11/23 asking Vasuraj to identify the number of team members needing a license so he can accurately determine total needed)",0,60000.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,"2026-02-15"
+50,"2025",6503,ITO,G&A,SW,Atlassian,Loom,US,0.0,0,"",Who is working to get Loom for free?,0,59400.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,"2025-06-25"
+51,"2025",6503,ITO,G&A,SW,Microsoft,Microsoft Suite,US,0.0,0,"","Okay (Req 5367)
+Find the Coupa request.",0,59000.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+52,"2025",6503,ITO,COS,SW,"Grammarly, Inc.",Grammarly,US,0.0,0,"","Updated to $41,450 from $36,000 (see note)
+Carey Rutigliano: Per Kelly T slack 10.30.24
+Grammarly - We received the final quote today, and with taxes, the annual cost is $41,450, and my budget submission is $36,000. Can you adjust this in the 2025 budget?",0,36000.0,41450.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,"2025-11-30"
+53,"2025",6503,ITO,G&A,SW,Calendly LLC.,Calendly,US,0.0,0,"",Double check the contracted value.,0,15600.0,14344.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,"2025-12-31"
+54,"2025",6503,ITO,G&A,SW,Docusign Inc.,Docusign,US,0.0,0,"","Carey Rutigliano: @Christine Alpers, @Fila Bertrand, @Kelly Thompson
+Did we confirm we are good with the $1,249 ALL IN per month for Docusign (this would cover ALL Depts including Legal, People and everyone in between) and will sit under ITOps
+Kelly Thompson: Just now @Carey Rutigliano. I worked with @Barbara Torres on the usage, and this would cover all department usage, and this will sit under the IT Ops budget. I apologize for not updating this channel.",0,14988.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,"2027-08-29"
+55,"2025",6502,ITO,G&A,HW,Amazon,Amazon Business (Purchase Account),FA,0.0,0,"","",0,12000.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+56,"2025",6503,ITO,G&A,SW,"GoDaddy Media Temple, Inc.",GoDaddy Domain Hosting,FA,0.0,0,"",To double-check if we actually spent it.,0,12000.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+57,"2025",6503,ITO,G&A,SW,Appfire Tech,Dropbox,US,0.0,0,"","Kelly Thompson:
+Dropbox user optimization projected savings of $4,500 for 2025. New license count 24.
+
+Kelly Thompson: HI, @Carey Rutigliano , Dropbox has been in the Finance budget, and several teams will continue to use it for 2025. $10,000 would cover the cost for 2025.
+I do see that all of the funds have been used for 2024, and we need to pay for October, November, and December for a total of $2,575. @Chelsey Paone created the original request in Coupa on 10/13/2023.",24,10000.0,5500.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,"2026-02-08"
+58,"2025",6103,ITO,G&A,TR,Udemy Inc.,Udemy,US,0.0,0,"",Training for Tech/PMO,0,9000.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,"2025-06-29"
+59,"2025",6207,ITO,G&A,SW,Benevity,Benevity,AS,0.0,0,"",CSR Platform,0,6683.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+60,"2025",6503,ITO,G&A,SW,Zoho,Zoho 24/7 Monioring,AS,0.0,0,"","",0,6600.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+61,"2025",6504,ITO,G&A,INF,Microsoft,Azure (ITOps Functions),PG,0.0,0,"",Check if not covered by the big Azure account.,0,6000.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+62,"2025",6503,ITO,G&A,SW,"Lucid Software, Inc.",LucidCharts,US,0.0,0,"",Use this and Miro (yes for now),0,3600.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,"2025-10-24"
+63,"2025",6503,ITO,G&A,SW,"TextExpander, Inc.",TextExpander,AS,0.0,0,"","",0,3600.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,"2025-12-29"
+64,"2025",6400,DVO,G&A,TE,Appfire,DevOps Management Meetup,FA,0.0,1,"",We deciced to cancel the event.,0,20000.0,1.0,"","",0.0,0.0,0.0,,DevOps Management Meetup,10,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+65,"2025",6503,ITO,G&A,SW,Techsmith,SnagIt,AS,0.0,0,"",Screen capturing and Recording Software,0,1500.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,"2026-02-14"
+66,"2025",6103,ITO,G&A,TR,Various,Training,FA,0.0,0,"",Get info if we indded spent any in Jan-Apr timeframe.,0,1140.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,1,100.0,100.0,100.0,100.0,100.0,100.0,90.0,90.0,90.0,90.0,90.0,90.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+67,"2025",6504,ITO,G&A,INF,"101domain GRS Ltd.","101 Domain Registration",FA,0.0,0,"","",0,600.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+68,"2025",6503,ITO,G&A,SW,Workona,Workona,FA,0.0,0,"","Browser plugin for user productivity.
+Likely -1 license from Fila.",0,285.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,"2025-07-15"
+69,"2025",6503,ENG,COS,SW,HotJar Ltd.,HotJar (Roman),AS,0.0,1,Needs to move/consolidate into Prod cost center. Replace with LogRocket.,Product analytics,0,780.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+70,"2025",6503,ENG,COS,SW," Intercom, Inc.",Intercom (Roman - Digital Toucan),FA,0.0,1,Considering getting rid of it or replacing with Chat for JSM,Communication with customers in Jexo product,0,5000.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+71,"2025",6503,ENG,COS,SW,Rapid7,Rapid7 (Roman - Digital Toucan),MS,0.0,1,Get rid of Heroku and Rapid7 - migrate to GCP/AWS,Logging platform for Heroku based apps,0,3366.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+72,"2025",6503,ENG,COS,SW,Functional Software Inc.,Sentry (Roman - Digital Toucan),MS,0.0,0,"",Frontend errors monitoring,0,2367.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+73,"2025",6503,ENG,COS,SW,Twilio Inc.,Segment.io (Roman - Jexo),MS,0.0,0,"","Jexo products advanced analytics
+$128 per month for 1 year + 15% buffer",0,1766.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+74,"2025",6503,ENG,COS,SW,Functional Software Inc.,Sentry (Roman - Jexo),MS,0.0,1,consider consolidation with Digital Toucan account,"Frontend errors monitoring; consider consolidation with Digital Toucan account
+$46.75 per month for 1 year + 15% buffer",0,645.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+75,"2025",6503,ENG,COS,SW,BunnyWay d.o.o.,Bunny.net (Roman),PG,0.0,0,"","Canned responses
+Used in Chat for JSM, auto-recharged whenever falls below $20",0,1000.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+76,"2025",6503,ENG,COS,SW,SonarSource SA,"SonarCloud (Roman - Spartez, Snapbytes, LizardBrain)",LC,720.0,1,Up to 1.2M lines of code at 720EUR per month; replace with SonarQube once available,"Code quality & security - used by Agile, ITSM, Integrations, DevTools",1200000,10600.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+77,"2025",6503,ENG,COS,SW,SmartBear Software,SugSnag (Roman - Spartez),AS,0.0,0,"","Frontend errors monitoring
+yearly plan (we are on on grandfathered plan, switching to the first available plan)",0,663.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+78,"2025",6503,ENG,COS,SW,Twilio,SendGrid (Roman - AgileApps),MS,90.0,0,"","Emails sending functionality used by Poker apps, Toggl and Jira&Google calendar integration.
+$90 per month + tax + potential price increase",12,1300.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+79,"2025",6503,ENG,COS,SW,Atlassian,OpsGenie (Roman - Nextup),FA,0.0,1,$97.75 p/m + 20% buffer rounded up. Consolidate into Appfire OpsGenie account?,Used for routing alerts,0,1410.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+80,"2025",6503,ENG,COS,SW,Idera Inc.,TestRail (Roman - Netup),MS,0.0,0,"","Used for regression testing
+ $74 p/m + 20% buffer rounded up. We have an annual plan renewing May 2025.",0,1065.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+81,"2025",6503,ENG,COS,SW,Microsoft,Dynamics 365 (Roman - Nextup),MS,0.0,0,"","Dynamics 365 allows spinning up MS Teams environments rapidly.
+Customer Service Digital Messaging Partner Sandbox - Nextup
+$31.88 p/m + 20% buffer rounded up.",0,460.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+82,"2025",6503,ENG,COS,SW,"NewRelic, Inc.",NewRelic (Roman - Nextup),FA,0.0,1,Planning to be on SumoLogic before 2025 but including for brevity. Prod+PreProd $2800p/m + 20% buffer,Monitoring / alerting / performance checks,0,40320.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+83,"2025",6503,ENG,COS,SW,Alludo,Parallels (Roman),US,134.0,0,"","Individual licenses
+Used by Integrations team for testing with Windows / TFS Server / TFS4JIRA installer
+134 USD per year per user * number of users",7,938.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+84,"2025",6503,ENG,COS,SW,SolarWinds Software,Pingdom (Petar),FA,0.0,1,"","Was FY24 $540
+Used by Document Management",0,540.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+85,"2025",6503,ENG,COS,SW,SolarWinds Worldwide LLC.,Loggly (Petar - JMWE),FA,0.0,1,"","Was FY24 $13'500
+JMWE Cloud logging platform, also used for external access to logs.",0,15000.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+86,"2025",6503,ENG,COS,SW,Alludo,Parallels (Petar Bob Swift & Tim Pesce),US,110.0,0,"","Bob Swift & Tim Pesce
+Lilely to reduce due to Bob leaving.",2,220.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+87,"2025",6503,ENG,COS,SW,Serverless Inc.,Serverless (Petar - Easy Numbered Headings),FA,0.0,1,"","Was FY24 $650
+Used by Easy Numbered Headings, may consider replacing it with free solution if there is capacity, but this will probably cost much more",0,650.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+88,"2025",6503,ENG,COS,SW,"Notion Labs, Inc.",Notion (Bartek),US,0.0,0,"","Migrating, the assumption agreed with Sergei is that we will not need budget for this.
+Refer to https://docs.google.com/spreadsheets/d/1ZdyyOVDEa1nENRzZBRxjrqhGpMCVHI1QFNf8fe_Rrds/edit?gid=71163764#gid=71163764",0,0.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+89,"2025",6503,ENG,COS,SW,Monday,Monday.com (Bartek),US,0.0,0,"","QA instance for monday team - This is does not look right, other teams that have apps on this ecosystem do not have this cost.",0,909.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+90,"2025",6503,ENG,COS,SW,Monday,Monday.com (Bartek - 7pace),US,0.0,0,"","7pace.monday.com, used by finance mainly - This is does not look right, other teams that have apps on this ecosystem do not have this cost.",0,3600.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+91,"2025",6503,ENG,COS,SW,Twilio,Twilio (Bartek),PG,0.0,0,"","",0,480.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+92,"2025",6503,ENG,COS,SW,Allure,TestOps (Bartek - QAMeta),US,0.0,0,"","",0,2340.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+93,"2025",6503,ENG,COS,SW,"Zendesk, Inc.",Zendesk (Bartek),US,0.0,1,If One Appfire succeeds: we keep 1 user; otherwise we renew it. Renewal is in July 2025,"",0,10055.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,"2025-07-01"
+94,"2025",6503,ENG,COS,SW,SolarWinds Software,Pingdom (Bartek),FA,0.0,1,Here is potential for consolidation in Appfire.,"",0,505.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+95,"2025",6503,ENG,COS,SW,Cookiebot,Cookiebot (Bartek),FA,0.0,0,"","",0,768.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+96,"2025",6503,ENG,COS,SW,NamLabs Technologies Pvt Ltd.,Atatus (Bartek),FA,0.0,0,"",Used for AzDO. RUM and front-end side monitoring.,0,1548.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+97,"2025",6503,ENG,COS,SW,SonarSource SA,SonarCloud (Bartek - 7pace),FA,0.0,1,Here is potential for consolidation in Appfire.,"",0,2021.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+98,"2025",6503,ENG,COS,SW,Apple,Apple Developer (Bartek),US,0.0,0,"",Needed to ship desktop agent.,0,104.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+99,"2025",6503,ENG,COS,SW,Catamorphic Co.,Launch Darkly (Bartek - 7Pace),US,0.0,1,"1703 - this will be consolidated in Q4
+Needs to move/consolidate into Product cost center","",0,0.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+100,"2025",6503,ENG,COS,SW,Crowdin,Crowdin (Bartek),FA,0.0,0,"",Localization management,0,348.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+101,"2025",6503,ENG,COS,SW,Dynatrace LLC.,Dynatrace (Bartek),FA,0.0,0,"",Used for AzDO production monitoring,0,17895.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+102,"2025",6503,ENG,COS,SW,Postman,Postman (Bartek),F,0.0,1,Will be canceled,"",0,0.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+103,"2025",6503,ENG,COS,SW,Microsoft,Visual Studio (Bartek),F,0.0,0,"",Included in Microsoft Gold Partnership price,0,0.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+104,"2025",6503,ENG,COS,SW,Microsoft,Microsoft Gold Partnership (Bartek),FA,0.0,0,"",Here is potential for consolidation in Appfire. Some attemts were already made by Max and Jeff.,0,5789.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+105,"2025",6503,ENG,COS,SW,"Chargebee, Inc.",Chargebee (Bartek),PB,0.0,0,"",Fee-based. 0.75% turnover,0,37500.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+106,"2025",6503,ENG,COS,SW,"Cloudflare, Inc.",Cloudflare (Bartek),PG,0.0,1,"","Fixed + Pay as you go
+Used for throttling traffic to production.",0,840.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+107,"2025",6503,ENG,COS,SW,Miro,Miro (Bartek),US,0.0,1,"Perhaps consider LucidSpark which is equivalent
+Needs to move/consolidate into ITOps cost center",What whiteboarding we use in Appfire after whiteboards was sunset?,0,4800.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+108,"2025",6503,ENG,COS,SW,Tokens Studio,Tokens Studio (Bartek),US,0.0,0,"",Access to Design Token studio.,0,684.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+109,"2025",6503,ENG,COS,SW,Atlassian,Statuspage (Bartek - 7Pace),FA,0.0,0,"",Here is potential for consolidation in Appfire.,0,696.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+110,"2025",6503,ENG,COS,SW,"Productboard, Inc.",Productboard (Bartek),FA,0.0,0,"","Portal to communicate our plans and engage community. Capturing, processing and categorizing feedback.
+Needs to move/consolidate into Product cost center.",0,12000.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+111,"2025",6503,ENG,COS,SW,JetBrains,Rider (Bartek),US,0.0,0,"",AppFire License Used,0,0.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+112,"2025",6503,ENG,COS,SW,JetBrains,Resharper + .Net tools (Bartek),US,0.0,0,"",AppFire License Used,0,0.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+113,"2025",6503,ENG,G&A,SW,"1Password","1Password (Bartek)",US,0.0,1,Sunset in favor of CyberArk,"",0,0.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+114,"2025",6503,ENG,COS,SW,Hangfire OÜ,Hangfire (Bartek),FA,0.0,0,"",.NET Library,0,1500.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+115,"2025",6503,ENG,COS,SW,zzzprojects,Entity Framework Plus (Bartek),FA,0.0,0,"",ORM Entity framework library for .NET.,0,2798.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+116,"2025",6503,DVO,COS,SW,CloudViz,CloudVid Diagraming,PG,0.0,1,We can consider using Lucid?,"10% Discount given for the first Year",0,850.0,0.0,"","",0.0,0.0,0.0,,"",0,"",0,1,100.0,100.0,120.0,130.0,400.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,"2026-05-06"

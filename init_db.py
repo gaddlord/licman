@@ -60,6 +60,9 @@ def init_db():
             LicenseModel(LicenseModelId='US', Name='User Subscription'),
             LicenseModel(LicenseModelId='LC', Name='Lines of Code'),
             LicenseModel(LicenseModelId='A', Name='Number of Agents'),
+            LicenseModel(LicenseModelId='F', Name='Free'),
+            LicenseModel(LicenseModelId='OS', Name='Open Source'),
+            LicenseModel(LicenseModelId='BP', Name='% of Billing'),
         ]
         db.session.add_all(license_models)
         
@@ -67,7 +70,23 @@ def init_db():
         organizations = [
             Organization(OrganizationId='ENG', Name='Engineering'),
             Organization(OrganizationId='DVO', Name='DevOps'),
-            Organization(OrganizationId='ITO', Name='IT Operations')
+            Organization(OrganizationId='ITO', Name='IT Operations'),
+            Organization(OrganizationId='CO', Name='Channel Operations'),
+            Organization(OrganizationId='CD', Name='Corporate Development'),
+            Organization(OrganizationId='CSR', Name='Corporate Social Responsibility'),
+            Organization(OrganizationId='CS', Name='Customer Success'),
+            Organization(OrganizationId='DI', Name='Data Insights'),
+            Organization(OrganizationId='FI', Name='Finance'),
+            Organization(OrganizationId='IS', Name='Information Security'),
+            Organization(OrganizationId='LC', Name='Legal & Compliance'),
+            Organization(OrganizationId='MA', Name='Marketing'),
+            Organization(OrganizationId='OP', Name='Operations'),
+            Organization(OrganizationId='PL', Name='People'),
+            Organization(OrganizationId='P', Name='Product'),
+            Organization(OrganizationId='PS', Name='Product Support'),
+            Organization(OrganizationId='PM', Name='Product Management'),
+            Organization(OrganizationId='SA', Name='Strategic Alliance'),
+            Organization(OrganizationId='TC', Name='Technical Communication'),
         ]
         db.session.add_all(organizations)
         
