@@ -67,9 +67,9 @@
                         <label for="search" class="form-label">Search Products, Vendors, or Organizations</label>
                         <div class="input-group">
                             <input type="text" class="form-control" id="search" name="search" placeholder="Enter search term..." value="{{ search_term }}">
-                            <button type="submit" class="btn btn-primary">Search</button>
+                            <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i> Search</button>
                             {% if search_term %}
-                                <a href="{{ url_for('index', year=selected_year, organization=selected_organization, category=selected_category) }}" class="btn btn-warning">Clear Search</a>
+                                <a href="{{ url_for('index', year=selected_year, organization=selected_organization, category=selected_category) }}" class="btn btn-warning"><i class="bi bi-x-circle"></i> Clear Search</a>
                             {% endif %}
                         </div>
                         {% if search_term %}
@@ -81,8 +81,8 @@
                     
                     <!-- Apply Filters Button -->
                     <div class="col-12">
-                        <button type="submit" class="btn btn-primary">Apply Filters</button>
-                        <a href="{{ url_for('index') }}" class="btn btn-secondary">Reset All</a>
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-funnel"></i> Apply Filters</button>
+                        <a href="{{ url_for('index') }}" class="btn btn-secondary"><i class="bi bi-arrow-counterclockwise"></i> Reset All</a>
                     </div>
                 </form>
             </div>
@@ -92,19 +92,25 @@
             <h5 class="mb-0">Expenses</h5>
             <div>
                 <a href="{{ url_for('new_expense') }}" class="btn btn-success me-2">
-                    New Expense
+                    <i class="bi bi-file-earmark-plus"></i> New Expense
                 </a>
                 <a href="{{ url_for('renewals') }}" class="btn btn-primary me-2">
                     View Renewals
                 </a>
                 <a href="{{ url_for('budget_treemap') }}" class="btn btn-primary me-2">
-                    Budget Treemap
+                    <i class="bi bi-diagram-3"></i> Budget Treemap
                 </a>
                 <a href="{{ url_for('org_breakdown') }}" class="btn btn-primary me-2">
                     Org Breakdown
                 </a>
+                <a href="{{ url_for('export_pdf')}}?{{ request.query_string.decode('utf-8') }}" class="btn btn-danger me-2">
+                    <i class="bi bi-file-earmark-pdf"></i> Export to PDF
+                </a>
+                <a href="{{ url_for('export_csv')}}?{{ request.query_string.decode('utf-8') }}" class="btn btn-danger me-2">
+                    <i class="bi bi-file-earmark-excel"></i> Export to CSV
+                </a>
                 <a href="{{ url_for('help_page') }}" class="btn btn-info me-2">
-                    Need Help?
+                    <i class="bi bi-question-circle"></i> Need Help?
                 </a>
             </div>
         </div>

@@ -1,10 +1,21 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, make_response
 from models.models import db, Expense, Years, Organization, Category, Groups, LicenseModel, Accounts
 from dotenv import load_dotenv
 import os
 import datetime
 import pymysql
 import re
+import io
+import csv
+from reportlab.lib.pagesizes import A4, landscape
+from reportlab.lib import colors
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.units import inch, cm
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.lib.enums import TA_CENTER, TA_RIGHT
+from reportlab.pdfbase.pdfdoc import PDFCatalog, PDFInfo, PDFDictionary, PDFString
 
 # Load environment variables
 load_dotenv()
@@ -678,6 +689,419 @@ def org_breakdown():
                           total_actual_formatted=total_actual_formatted,
                           total_difference_formatted=total_difference_formatted,
                           current_year=current_year)
+
+@app.route('/export_csv')
+def export_csv():
+    # Get filter parameters
+    selected_year = request.args.get('year', 'all')
+    selected_organization = request.args.get('organization', 'all')
+    selected_category = request.args.get('category', 'all')
+    search_term = request.args.get('search', '')
+    
+    # Start with base query
+    query = Expense.query
+    
+    # Apply filters if selected
+    if selected_year and selected_year != 'all':
+        query = query.filter_by(YearId=selected_year)
+    
+    if selected_organization and selected_organization != 'all':
+        query = query.filter_by(OrganizationId=selected_organization)
+    
+    if selected_category and selected_category != 'all':
+        query = query.filter_by(CategoryId=selected_category)
+    
+    # Apply search filter if provided
+    if search_term:
+        # Filter by Product, Vendor, or Organization containing the search term
+        query = query.join(Organization).filter(
+            db.or_(
+                Expense.Product.ilike(f'%{search_term}%'),
+                Expense.Vendor.ilike(f'%{search_term}%'),
+                Organization.Name.ilike(f'%{search_term}%')
+            )
+        )
+    else:
+        # Join Organization to avoid errors
+        query = query.join(Organization)
+    
+    # Execute query
+    expenses = query.all()
+    
+    # Create CSV in memory
+    output = io.StringIO()
+    writer = csv.writer(output, quoting=csv.QUOTE_NONNUMERIC)
+    
+    # Determine which columns to include based on filters
+    headers = []
+    if selected_year == 'all':
+        headers.append("Year")
+    headers.extend(["Vendor", "Product"])
+    if selected_category == 'all':
+        headers.append("Category")
+    if selected_organization == 'all':
+        headers.append("Organization")
+    headers.extend(["Group", "Cost Per Unit", "Units", "Approved Budget", "Contracted Value", "Sunset"])
+    
+    # Write headers
+    writer.writerow(headers)
+    
+    # Format currency function
+    def format_currency(value):
+        if value is None or value == 0:
+            return "$0"
+        return f"${int(value):,}".replace(",", "'")
+    
+    # Write data rows
+    for expense in expenses:
+        row = []
+        if selected_year == 'all':
+            row.append(expense.year.Name)
+        row.append(expense.Vendor)
+        row.append(expense.Product)
+        if selected_category == 'all':
+            row.append(expense.category.Name)
+        if selected_organization == 'all':
+            row.append(expense.organization.Name)
+        row.append(expense.group.Name)
+        row.append(format_currency(expense.CostPerUnit))
+        row.append(str(expense.NumberOfUnits))
+        row.append(format_currency(expense.ApprovedValue))
+        row.append(format_currency(expense.ContractedValue))
+        row.append("Yes" if expense.Sunset else "No")
+        writer.writerow(row)
+    
+    # Add totals row
+    totals_row = [""] * len(headers)
+    # Calculate position for "Totals:" label
+    offset = 0
+    if selected_year == 'all':
+        offset += 1
+    if selected_category == 'all':
+        offset += 1
+    if selected_organization == 'all':
+        offset += 1
+    offset += 3  # Skip Vendor, Product, Group
+    totals_row[offset] = "Totals:"
+    
+    # Calculate totals
+    total_approved = sum(expense.ApprovedValue or 0 for expense in expenses)
+    total_contracted = sum(expense.ContractedValue or 0 for expense in expenses)
+    
+    # Set totals in the row
+    totals_row[-3] = format_currency(total_approved)  # Approved Budget
+    totals_row[-2] = format_currency(total_contracted)  # Contracted Value
+    writer.writerow(totals_row)
+    
+    # Create response
+    output.seek(0)
+    response = make_response(output.getvalue())
+    response.headers["Content-Disposition"] = "attachment; filename=licman_expenses.csv"
+    response.headers["Content-type"] = "text/csv"
+    
+    return response
+
+@app.route('/export_pdf')
+def export_pdf():
+    # Get filter parameters
+    selected_year = request.args.get('year', 'all')
+    selected_organization = request.args.get('organization', 'all')
+    selected_category = request.args.get('category', 'all')
+    search_term = request.args.get('search', '')
+    
+    # Start with base query
+    query = Expense.query
+    
+    # Apply filters if selected
+    if selected_year and selected_year != 'all':
+        query = query.filter_by(YearId=selected_year)
+    
+    if selected_organization and selected_organization != 'all':
+        query = query.filter_by(OrganizationId=selected_organization)
+    
+    if selected_category and selected_category != 'all':
+        query = query.filter_by(CategoryId=selected_category)
+    
+    # Apply search filter if provided
+    if search_term:
+        # Filter by Product, Vendor, or Organization containing the search term
+        query = query.join(Organization).filter(
+            db.or_(
+                Expense.Product.ilike(f'%{search_term}%'),
+                Expense.Vendor.ilike(f'%{search_term}%'),
+                Organization.Name.ilike(f'%{search_term}%')
+            )
+        )
+    else:
+        # If no search term, still join Organization to avoid errors
+        query = query.join(Organization)
+    
+    # Execute query
+    expenses = query.all()
+    
+    # Create a file-like buffer to receive PDF data
+    buffer = io.BytesIO()
+    
+    # Set up the PDF document with PDF/A compatibility and landscape orientation
+    doc = SimpleDocTemplate(
+        buffer,
+        pagesize=landscape(A4),
+        title="LicMan Expenses Report",
+        author="AppFire LLC",
+        subject="Expenses Report",
+        creator="LicMan Application",
+        leftMargin=0.5*inch,
+        rightMargin=0.5*inch,
+        topMargin=0.5*inch,
+        bottomMargin=0.5*inch
+    )
+    
+    # Get the current year for copyright
+    current_year = datetime.datetime.now().year
+    
+    # Define styles
+    styles = getSampleStyleSheet()
+    title_style = styles['Heading1']
+    title_style.alignment = TA_CENTER
+    
+    # Create a custom style for the footer
+    footer_style = ParagraphStyle(
+        'footer',
+        parent=styles['Normal'],
+        fontSize=8,
+        alignment=TA_CENTER
+    )
+    
+    # Create document elements
+    elements = []
+    
+    # Add title
+    title = Paragraph("LicMan Expenses Report", title_style)
+    elements.append(title)
+    elements.append(Spacer(1, 0.5*inch))
+    
+    # Prepare filter information
+    filter_text = f"Filters: "
+    if selected_year != 'all':
+        year_obj = Years.query.filter_by(YearId=selected_year).first()
+        filter_text += f"Year: {year_obj.Name if year_obj else selected_year}, "
+    if selected_organization != 'all':
+        org_obj = Organization.query.filter_by(OrganizationId=selected_organization).first()
+        filter_text += f"Organization: {org_obj.Name if org_obj else selected_organization}, "
+    if selected_category != 'all':
+        cat_obj = Category.query.filter_by(CategoryId=selected_category).first()
+        filter_text += f"Category: {cat_obj.Name if cat_obj else selected_category}, "
+    if search_term:
+        filter_text += f"Search: '{search_term}'"
+    
+    # Add filter information
+    filter_paragraph = Paragraph(filter_text, styles['Normal'])
+    elements.append(filter_paragraph)
+    elements.append(Spacer(1, 0.3*inch))
+    
+    # Determine which columns to include based on filters (excluding Category and Group)
+    headers = []
+    if selected_year == 'all':
+        headers.append("Year")
+    headers.extend(["Vendor", "Product"])
+    if selected_organization == 'all':
+        headers.append("Organization")
+    headers.extend(["Cost Per Unit", "Units", "Approved Budget", "Contracted Value", "Sunset"])
+    
+    # Prepare data for the table
+    data = [headers]
+    
+    # Format currency function
+    def format_currency(value):
+        if value is None:
+            return "$0"
+        return f"${int(value):,}".replace(",", "'")
+    
+    # Add expense data
+    for expense in expenses:
+        row = []
+        if selected_year == 'all':
+            row.append(expense.year.Name)
+        row.append(expense.Vendor)
+        row.append(expense.Product)
+        if selected_organization == 'all':
+            row.append(expense.organization.Name)
+        row.append(format_currency(expense.CostPerUnit))
+        row.append(str(expense.NumberOfUnits))
+        row.append(format_currency(expense.ApprovedValue))
+        row.append(format_currency(expense.ContractedValue))
+        row.append("Yes" if expense.Sunset else "No")
+        data.append(row)
+    
+    # Calculate totals
+    total_approved = sum(expense.ApprovedValue or 0 for expense in expenses)
+    total_contracted = sum(expense.ContractedValue or 0 for expense in expenses)
+    
+    # Add totals row
+    totals_row = ["" for _ in range(len(headers))]
+    # Set the label for totals
+    offset = 0
+    if selected_year == 'all':
+        offset += 1
+    if selected_organization == 'all':
+        offset += 1
+    totals_row[offset + 2] = "Totals:"
+    # Set the values for totals
+    totals_row[-3] = format_currency(total_approved)  # Approved Budget
+    totals_row[-2] = format_currency(total_contracted)  # Contracted Value
+    data.append(totals_row)
+    
+    # Calculate appropriate column widths based on content and available space
+    # Determine available width in landscape mode (A4 height becomes width in landscape)
+    available_width = landscape(A4)[0] - inch  # Subtract margins
+    
+    # Define column widths proportionally
+    col_widths = []
+    
+    # Assign widths based on content type
+    for i, header in enumerate(headers):
+        if header in ["Year", "Units", "Sunset"]:
+            # Narrow columns
+            col_widths.append(0.06 * available_width)
+        elif header == "Vendor":
+            # Wider column for Vendor with word wrap
+            col_widths.append(0.18 * available_width)
+        elif header == "Product":
+            # Wider column for Product with word wrap
+            col_widths.append(0.22 * available_width)
+        elif header == "Organization":
+            # Medium-wide column for Organization
+            col_widths.append(0.16 * available_width)
+        elif header in ["Cost Per Unit", "Approved Budget", "Contracted Value"]:
+            # Medium columns for currency
+            col_widths.append(0.10 * available_width)
+    
+    # Create the table with specified column widths
+    table = Table(data, repeatRows=1, colWidths=col_widths)
+    
+    # Style the table
+    table_style = TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.darkblue),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('FONTSIZE', (0, 0), (-1, 0), 10),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+        ('BACKGROUND', (0, 1), (-1, -2), colors.white),
+        ('BACKGROUND', (0, -1), (-1, -1), colors.lightgrey),  # Totals row
+        ('FONTNAME', (0, -1), (-1, -1), 'Helvetica-Bold'),  # Totals row
+        ('GRID', (0, 0), (-1, -1), 1, colors.black),
+        ('ALIGN', (-4, 1), (-2, -1), 'RIGHT'),  # Right align numeric columns
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+        ('WORDWRAP', (0, 0), (-1, -1), True),  # Enable word wrapping for all cells
+        ('FONTSIZE', (0, 1), (-1, -1), 9),  # Slightly smaller font for data rows
+    ])
+    
+    # Find column indices for Vendor and Product
+    vendor_col = headers.index("Vendor")
+    product_col = headers.index("Product")
+    
+    # Add specific styling for Vendor and Product columns with enhanced word wrapping
+    # Use explicit word wrapping for Product column
+    for i, row in enumerate(data[1:], 1):  # Skip header row
+        # Process Product column text to ensure it wraps
+        if len(row) > product_col and isinstance(row[product_col], str) and len(row[product_col]) > 20:
+            # Create a paragraph with word wrapping for the Product column
+            product_style = ParagraphStyle(
+                'ProductStyle',
+                parent=styles['Normal'],
+                fontSize=9,
+                leading=11,  # Line spacing
+                wordWrap='CJK',  # Force aggressive word wrapping
+                alignment=0  # Left aligned
+            )
+            row[product_col] = Paragraph(row[product_col], product_style)
+        
+        # Process Vendor column text to ensure it wraps
+        if len(row) > vendor_col and isinstance(row[vendor_col], str) and len(row[vendor_col]) > 15:
+            vendor_style = ParagraphStyle(
+                'VendorStyle',
+                parent=styles['Normal'],
+                fontSize=9,
+                leading=11,  # Line spacing
+                wordWrap='CJK',  # Force aggressive word wrapping
+                alignment=0  # Left aligned
+            )
+            row[vendor_col] = Paragraph(row[vendor_col], vendor_style)
+    
+    # Add general styling for these columns
+    table_style.add('LEFTPADDING', (vendor_col, 1), (vendor_col, -1), 6)
+    table_style.add('LEFTPADDING', (product_col, 1), (product_col, -1), 6)
+    table_style.add('RIGHTPADDING', (vendor_col, 1), (vendor_col, -1), 6)
+    table_style.add('RIGHTPADDING', (product_col, 1), (product_col, -1), 6)
+    # Add extra vertical space for wrapped cells
+    table_style.add('TOPPADDING', (product_col, 1), (product_col, -1), 4)
+    table_style.add('BOTTOMPADDING', (product_col, 1), (product_col, -1), 4)
+    
+    # Add row striping
+    for i in range(1, len(data)-1):
+        if i % 2 == 0:
+            table_style.add('BACKGROUND', (0, i), (-1, i), colors.lightgrey)
+    
+    # Apply special formatting for sunset rows
+    for i, expense in enumerate(expenses, 1):
+        if expense.Sunset:
+            table_style.add('BACKGROUND', (0, i), (-1, i), colors.salmon)
+    
+    table.setStyle(table_style)
+    elements.append(table)
+    
+    # Define the footer function for PDF/A compatibility
+    def footer(canvas, doc):
+        canvas.saveState()
+        # Draw the footer - centered in landscape mode
+        footer_text = f"© {current_year} AppFire LLC. All Rights Reserved."
+        p = Paragraph(footer_text, footer_style)
+        # In landscape mode, doc.width is actually the height of A4 in portrait
+        # and doc.height is the width of A4 in portrait
+        page_width = landscape(A4)[0]  # This is the actual width in landscape
+        w, h = p.wrap(page_width - inch, doc.bottomMargin)
+        # Center the footer text horizontally
+        x = (page_width - w) / 2
+        p.drawOn(canvas, x, 0.5*inch)
+        
+        # Add PDF/A compatibility metadata
+        canvas.setTitle("LicMan Expenses Report")
+        canvas.setAuthor("AppFire LLC")
+        canvas.setSubject("Expenses Report")
+        canvas.setCreator("LicMan Application")
+        # Add PDF/A identifier
+        info = canvas._doc.info
+        info.PDFAVersion = PDFString('PDF/A-1b:2005')
+        # Add XMP metadata for PDF/A compliance
+        canvas._doc._catalog.XMP = PDFString(
+            '<?xpacket begin="\ufeff" id="W5M0MpCehiHzreSzNTczkc9d"?>'
+            '<x:xmpmeta xmlns:x="adobe:ns:meta/">'
+            '<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">'
+            '<rdf:Description rdf:about="" '
+            'xmlns:pdfaid="http://www.aiim.org/pdfa/ns/id/">'
+            '<pdfaid:part>1</pdfaid:part>'
+            '<pdfaid:conformance>B</pdfaid:conformance>'
+            '</rdf:Description>'
+            '</rdf:RDF>'
+            '</x:xmpmeta>'
+            '<?xpacket end="w"?>'
+        )
+        canvas.restoreState()
+    
+    # Build the PDF document
+    doc.build(elements, onFirstPage=footer, onLaterPages=footer)
+    
+    # Get the PDF data from the buffer
+    pdf_data = buffer.getvalue()
+    buffer.close()
+    
+    # Create response with PDF data
+    response = make_response(pdf_data)
+    response.headers['Content-Type'] = 'application/pdf'
+    response.headers['Content-Disposition'] = 'attachment; filename=licman_expenses.pdf'
+    
+    return response
 
 if __name__ == '__main__':
     port = os.getenv('LICMAN_PORT')
