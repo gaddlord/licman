@@ -62,10 +62,27 @@
                         </select>
                     </div>
                     
+                    <!-- Search Box -->
+                    <div class="col-md-12 mt-3">
+                        <label for="search" class="form-label">Search Products, Vendors, or Organizations</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="search" name="search" placeholder="Enter search term..." value="{{ search_term }}">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                            {% if search_term %}
+                                <a href="{{ url_for('index', year=selected_year, organization=selected_organization, category=selected_category) }}" class="btn btn-warning">Clear Search</a>
+                            {% endif %}
+                        </div>
+                        {% if search_term %}
+                            <div class="mt-2">
+                                <span class="badge bg-info text-dark">Search: "{{ search_term }}"</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                    
                     <!-- Apply Filters Button -->
                     <div class="col-12">
                         <button type="submit" class="btn btn-primary">Apply Filters</button>
-                        <a href="{{ url_for('index') }}" class="btn btn-secondary">Reset</a>
+                        <a href="{{ url_for('index') }}" class="btn btn-secondary">Reset All</a>
                     </div>
                 </form>
             </div>

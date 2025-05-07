@@ -68,6 +68,7 @@ def index():
     selected_year = request.args.get('year', default_year)
     selected_organization = request.args.get('organization', 'all')
     selected_category = request.args.get('category', 'all')
+    search_term = request.args.get('search', '')
     
     # Start with base query
     query = Expense.query
@@ -82,6 +83,17 @@ def index():
     if selected_category and selected_category != 'all':
         query = query.filter_by(CategoryId=selected_category)
     
+    # Apply search filter if provided
+    if search_term:
+        # Filter by Product, Vendor, or Organization containing the search term
+        query = query.join(Organization).filter(
+            db.or_(
+                Expense.Product.ilike(f'%{search_term}%'),
+                Expense.Vendor.ilike(f'%{search_term}%'),
+                Organization.Name.ilike(f'%{search_term}%')
+            )
+        )
+    
     # Execute query
     expenses = query.all()
     
@@ -93,6 +105,7 @@ def index():
                           selected_year=selected_year,
                           selected_organization=selected_organization,
                           selected_category=selected_category,
+                          search_term=search_term,
                           current_year=current_year)
 
 @app.route('/expense/<int:expense_id>')
