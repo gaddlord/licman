@@ -376,6 +376,10 @@ def edit_expense(expense_id):
     
     # Handle form submission
     if request.method == 'POST':
+        # Capture old values BEFORE making any changes
+        old_values = {}
+        for column in expense.__table__.columns.keys():
+            old_values[column] = getattr(expense, column)
         # Update expense with form data
         expense.YearId = request.form.get('year')
         expense.AccountId = int(request.form.get('account'))
@@ -510,12 +514,7 @@ def edit_expense(expense_id):
         if request.form.get('training_number_of_trainees'):
             expense.TrainingNumberOfTrainees = int(request.form.get('training_number_of_trainees') or 0)
         
-        # Get the old values before making changes
-        old_values = {}
-        for column in expense.__table__.columns.keys():
-            old_values[column] = getattr(expense, column)
-        
-        # Log the changes
+        # Get the new values after all changes have been made
         new_values = {}
         for column in expense.__table__.columns.keys():
             new_values[column] = getattr(expense, column)
