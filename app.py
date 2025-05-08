@@ -163,6 +163,7 @@ def new_expense():
         SunsetPlan='',
         Notes='',
         ProcurementUrl='',
+        LicensedUsersUrl='',
         EmployeeName='',
         EmployeeAnnualSalary=0.0,
         EmployeeAnnualBonus=0.0,
@@ -217,6 +218,7 @@ def new_expense():
         expense.SunsetPlan = request.form.get('sunset_plan')
         expense.Notes = request.form.get('notes')
         expense.ProcurementUrl = request.form.get('procurement_url')
+        expense.LicensedUsersUrl = request.form.get('licensed_users_url')
         expense.EmployeeName = request.form.get('employee_name')
         
         # Handle Renewal date field
@@ -397,6 +399,7 @@ def edit_expense(expense_id):
         expense.SunsetPlan = request.form.get('sunset_plan')
         expense.Notes = request.form.get('notes')
         expense.ProcurementUrl = request.form.get('procurement_url')
+        expense.LicensedUsersUrl = request.form.get('licensed_users_url')
         expense.EmployeeName = request.form.get('employee_name')
         
         # Handle Renewal date field

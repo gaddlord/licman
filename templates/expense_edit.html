@@ -391,6 +391,13 @@
                         </div>
                     </div>
                     
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <label for="licensed_users_url" class="form-label">License Users URL <span class="text-muted">(optional)</span></label>
+                            <input type="url" class="form-control" id="licensed_users_url" name="licensed_users_url" value="{{ expense.LicensedUsersUrl }}">
+                        </div>
+                    </div>
+                    
                     <!-- Employee Information (conditionally displayed) -->
                     <div id="employee-section" class="{% if expense.CategoryId not in ['FTE', 'AWF'] %}d-none{% endif %}">
                         <h4 class="mb-3 mt-4">Employee Information</h4>

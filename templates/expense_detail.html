@@ -114,6 +114,14 @@
                     </div>
                 </div>
                 {% endif %}
+                {% if expense.LicensedUsersUrl %}
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">License Users URL:</div>
+                    <div class="col-md-9">
+                        <a href="{{ expense.LicensedUsersUrl }}" target="_blank">{{ expense.LicensedUsersUrl }}</a>
+                    </div>
+                </div>
+                {% endif %}
                 
                 <!-- Additional fields based on expense type -->
                 {% if expense.category.CategoryId in ['FTE', 'AWF'] %}

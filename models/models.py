@@ -78,6 +78,7 @@ class Expense(db.Model):
     ApprovedValue = Column(Float, nullable=False)
     ContractedValue = Column(Float)
     ProcurementUrl = Column(String(1000))
+    LicensedUsersUrl = Column(String(1000))
     EmployeeName = Column(String(100))
     EmployeeAnnualSalary = Column(Float)
     EmployeeAnnualBonus = Column(Float)
