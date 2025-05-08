@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, make_response
-from models.models import db, Expense, Years, Organization, Category, Groups, LicenseModel, Accounts
+from models.models import db, Expense, Years, Organization, Category, Groups, LicenseModel, Accounts, AuditLog
+from utils.audit_logger import log_changes, log_create, log_delete
 from dotenv import load_dotenv
 import os
 import datetime
@@ -337,6 +338,12 @@ def new_expense():
         db.session.add(expense)
         db.session.commit()
         
+        # Log the creation of the expense
+        log_create(expense)
+        
+        # Commit the transaction to save the expense and audit logs
+        db.session.commit()
+        
         # Redirect to detail page
         return redirect(url_for('expense_detail', expense_id=expense.ExpenseId))
     
@@ -503,7 +510,19 @@ def edit_expense(expense_id):
         if request.form.get('training_number_of_trainees'):
             expense.TrainingNumberOfTrainees = int(request.form.get('training_number_of_trainees') or 0)
         
-        # Save changes
+        # Get the old values before making changes
+        old_values = {}
+        for column in expense.__table__.columns.keys():
+            old_values[column] = getattr(expense, column)
+        
+        # Log the changes
+        new_values = {}
+        for column in expense.__table__.columns.keys():
+            new_values[column] = getattr(expense, column)
+            
+        log_changes('Expense', expense.ExpenseId, old_values, new_values)
+        
+        # Commit the transaction to save the expense changes and audit logs
         db.session.commit()
         
         # Redirect to detail page
@@ -525,6 +544,9 @@ def delete_expense(expense_id):
     # Get the expense record
     expense = Expense.query.get_or_404(expense_id)
     
+    # Log the deletion before deleting the expense
+    log_delete(expense)
+    
     # Delete the expense
     db.session.delete(expense)
     db.session.commit()
@@ -538,6 +560,62 @@ def help_page():
     current_year = datetime.datetime.now().year
     
     return render_template('help.html', current_year=current_year)
+
+@app.route('/audit-logs')
+def audit_logs():
+    # Get current year for footer
+    current_year = datetime.datetime.now().year
+    
+    # Get filter parameters
+    selected_table = request.args.get('table', 'all')
+    selected_record_id = request.args.get('record_id', '')
+    date_from = request.args.get('date_from', '')
+    date_to = request.args.get('date_to', '')
+    
+    # Start with base query
+    query = AuditLog.query
+    
+    # Apply filters if selected
+    if selected_table and selected_table != 'all':
+        query = query.filter_by(TableName=selected_table)
+    
+    if selected_record_id:
+        query = query.filter_by(RecordId=int(selected_record_id))
+    
+    if date_from:
+        try:
+            from_date = datetime.datetime.strptime(date_from, '%Y-%m-%d')
+            query = query.filter(AuditLog.Timestamp >= from_date)
+        except ValueError:
+            pass
+    
+    if date_to:
+        try:
+            to_date = datetime.datetime.strptime(date_to, '%Y-%m-%d')
+            # Add one day to include the entire day
+            to_date = to_date + datetime.timedelta(days=1)
+            query = query.filter(AuditLog.Timestamp < to_date)
+        except ValueError:
+            pass
+    
+    # Order by timestamp descending (newest first)
+    query = query.order_by(AuditLog.Timestamp.desc())
+    
+    # Execute query
+    audit_logs = query.all()
+    
+    # Get list of unique table names for the filter dropdown
+    tables = db.session.query(AuditLog.TableName).distinct().all()
+    tables = [table[0] for table in tables]  # Extract table names from result tuples
+    
+    return render_template('audit_logs.html',
+                          audit_logs=audit_logs,
+                          tables=tables,
+                          selected_table=selected_table,
+                          selected_record_id=selected_record_id,
+                          date_from=date_from,
+                          date_to=date_to,
+                          current_year=current_year)
 
 @app.route('/renewals')
 def renewals():

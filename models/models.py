@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, String, Float, Boolean, Date, ForeignKey
+from sqlalchemy import Column, Integer, String, Float, Boolean, Date, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
+import datetime
 
 db = SQLAlchemy()
 
@@ -136,3 +137,17 @@ class Licenses(db.Model):
 
     def __repr__(self):
         return f'<License {self.EmployeeEmail}>'
+
+class AuditLog(db.Model):
+    __tablename__ = 'AuditLogs'
+    AuditLogIds = Column(Integer, primary_key=True, autoincrement=True)
+    Timestamp = Column(DateTime, default=datetime.datetime.now)
+    TableName = Column(String(100), nullable=False)
+    ColumnName = Column(String(100), nullable=False)
+    OldValue = Column(String(100), nullable=True)
+    NewValue = Column(String(100), nullable=True)
+    RecordId = Column(Integer, nullable=False)
+    UserId = Column(String(100), nullable=True)
+    
+    def __repr__(self):
+        return f'<AuditLog {self.TableName}.{self.Column}:{self.RecordId}>'

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LicMan - Audit Logs</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='ico/favicon.ico') }}">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='svg/logo.svg') }}" alt="LicMan Logo" class="logo">
+            <h1>LicMan</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('renewals') }}">Renewals</a></li>
+                <li><a href="{{ url_for('budget_treemap') }}">Budget Treemap</a></li>
+                <li><a href="{{ url_for('org_breakdown') }}">Org Breakdown</a></li>
+                <li><a href="{{ url_for('audit_logs') }}" class="active">Audit Logs</a></li>
+                <li><a href="{{ url_for('help_page') }}">Help</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Audit Logs</h2>
+        
+        <div class="filter-section">
+            <form action="{{ url_for('audit_logs') }}" method="GET">
+                <div class="filter-group">
+                    <label for="table">Table:</label>
+                    <select name="table" id="table">
+                        <option value="all" {% if selected_table == 'all' %}selected{% endif %}>All Tables</option>
+                        {% for table in tables %}
+                        <option value="{{ table }}" {% if selected_table == table %}selected{% endif %}>{{ table }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="record_id">Record ID:</label>
+                    <input type="text" name="record_id" id="record_id" value="{{ selected_record_id }}">
+                </div>
+                
+                <div class="filter-group">
+                    <label for="date_from">From Date:</label>
+                    <input type="date" name="date_from" id="date_from" value="{{ date_from }}">
+                </div>
+                
+                <div class="filter-group">
+                    <label for="date_to">To Date:</label>
+                    <input type="date" name="date_to" id="date_to" value="{{ date_to }}">
+                </div>
+                
+                <button type="submit" class="btn">Apply Filters</button>
+            </form>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Table</th>
+                        <th>Record ID</th>
+                        <th>Column</th>
+                        <th>Old Value</th>
+                        <th>New Value</th>
+                        <th>User</th>
+                        <th>Timestamp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in audit_logs %}
+                    <tr>
+                        <td>{{ log.AuditLogIds }}</td>
+                        <td>{{ log.TableName }}</td>
+                        <td>{{ log.RecordId }}</td>
+                        <td>{{ log.ColumnName }}</td>
+                        <td>{{ log.OldValue }}</td>
+                        <td>{{ log.NewValue }}</td>
+                        <td>{{ log.UserId or 'System' }}</td>
+                        <td>{{ log.Timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        {% if audit_logs|length == 0 %}
+        <div class="no-data">
+            <p>No audit logs found matching the selected filters.</p>
+        </div>
+        {% endif %}
+    </main>
+
+    <footer>
+        <p>&copy; {{ current_year }} AppFire LLC. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,11 +1,28 @@
 -- licman.Accounts definition
 
 CREATE TABLE `Accounts` (
-  `AccountId` int NOT NULL,
+  `AccountId` int NOT NULL AUTO_INCREMENT,
   `Name` varchar(100) NOT NULL,
   PRIMARY KEY (`AccountId`),
-  UNIQUE KEY `Accounts_UNIQUE` (`Name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf16;
+  UNIQUE KEY `Name` (`Name`)
+) ENGINE=InnoDB AUTO_INCREMENT=6606 DEFAULT CHARSET=utf16;
+
+
+-- licman.AuditLogs definition
+
+CREATE TABLE `AuditLogs` (
+  `AuditLogIds` int NOT NULL AUTO_INCREMENT,
+  `Timestamp` datetime DEFAULT NULL,
+  `TableName` varchar(100) CHARACTER SET utf16 COLLATE utf16_general_ci NOT NULL,
+  `ColumnName` varchar(100) NOT NULL,
+  `OldValue` varchar(100) DEFAULT NULL,
+  `NewValue` varchar(100) DEFAULT NULL,
+  `RecordId` int NOT NULL,
+  `UserId` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`AuditLogIds`),
+  KEY `idx_auditlogs_table_record` (`TableName`,`RecordId`),
+  KEY `idx_auditlogs_timestamp` (`Timestamp`)
+) ENGINE=InnoDB AUTO_INCREMENT=154 DEFAULT CHARSET=utf16;
 
 
 -- licman.Category definition
@@ -13,8 +30,7 @@ CREATE TABLE `Accounts` (
 CREATE TABLE `Category` (
   `CategoryId` varchar(100) NOT NULL,
   `Name` varchar(100) NOT NULL,
-  PRIMARY KEY (`CategoryId`),
-  UNIQUE KEY `Category_UNIQUE` (`CategoryId`)
+  PRIMARY KEY (`CategoryId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16;
 
 
@@ -24,17 +40,17 @@ CREATE TABLE `Groups` (
   `GroupId` varchar(100) NOT NULL,
   `Name` varchar(100) NOT NULL,
   PRIMARY KEY (`GroupId`),
-  UNIQUE KEY `Groups_UNIQUE` (`Name`)
+  UNIQUE KEY `Name` (`Name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16;
 
 
 -- licman.LicenseModel definition
 
 CREATE TABLE `LicenseModel` (
-  `LicenseModelId` varchar(100) CHARACTER SET utf16 COLLATE utf16_general_ci NOT NULL,
+  `LicenseModelId` varchar(100) NOT NULL,
   `Name` varchar(100) NOT NULL,
   PRIMARY KEY (`LicenseModelId`),
-  UNIQUE KEY `LicenseModel_UNIQUE` (`Name`)
+  UNIQUE KEY `Name` (`Name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16;
 
 
@@ -44,27 +60,7 @@ CREATE TABLE `Organization` (
   `OrganizationId` varchar(100) NOT NULL,
   `Name` varchar(100) NOT NULL,
   PRIMARY KEY (`OrganizationId`),
-  UNIQUE KEY `Organization_UNIQUE` (`Name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf16;
-
-
--- licman.Periods definition
-
-CREATE TABLE `Periods` (
-  `PeriodId` varchar(100) NOT NULL,
-  `Name` varchar(100) NOT NULL,
-  PRIMARY KEY (`PeriodId`),
-  UNIQUE KEY `Periods_UNIQUE` (`Name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf16;
-
-
--- licman.Units definition
-
-CREATE TABLE `Units` (
-  `UnitId` varchar(100) CHARACTER SET utf16 COLLATE utf16_general_ci NOT NULL,
-  `Name` varchar(100) NOT NULL,
-  PRIMARY KEY (`UnitId`),
-  UNIQUE KEY `Units_UNIQUE` (`Name`)
+  UNIQUE KEY `Name` (`Name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16;
 
 
@@ -74,7 +70,7 @@ CREATE TABLE `Years` (
   `YearId` varchar(4) NOT NULL,
   `Name` varchar(100) NOT NULL,
   PRIMARY KEY (`YearId`),
-  UNIQUE KEY `Years_UNIQUE` (`Name`)
+  UNIQUE KEY `Name` (`Name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16;
 
 
@@ -82,55 +78,80 @@ CREATE TABLE `Years` (
 
 CREATE TABLE `Expense` (
   `ExpenseId` int NOT NULL AUTO_INCREMENT,
-  `YearId` varchar(4) CHARACTER SET utf16 COLLATE utf16_general_ci NOT NULL,
+  `YearId` varchar(4) NOT NULL,
   `AccountId` int NOT NULL,
-  `OrganizationId` varchar(100) CHARACTER SET utf16 COLLATE utf16_general_ci NOT NULL,
-  `GroupId` varchar(100) CHARACTER SET utf16 COLLATE utf16_general_ci NOT NULL,
+  `OrganizationId` varchar(100) NOT NULL,
+  `GroupId` varchar(100) NOT NULL,
   `CategoryId` varchar(100) NOT NULL,
-  `Vendor` varchar(100) CHARACTER SET utf16 COLLATE utf16_general_ci NOT NULL,
-  `Product` varchar(100) CHARACTER SET utf16 COLLATE utf16_general_ci NOT NULL,
-  `LicenseModelId` varchar(100) CHARACTER SET utf16 COLLATE utf16_general_ci NOT NULL,
-  `CostPerUnit` double DEFAULT NULL,
-  `Sunset` bit(1) NOT NULL DEFAULT b'0',
-  `SunsetPlan` varchar(500) CHARACTER SET utf16 COLLATE utf16_general_ci DEFAULT NULL,
+  `Vendor` varchar(100) NOT NULL,
+  `Product` varchar(100) NOT NULL,
+  `LicenseModelId` varchar(100) NOT NULL,
+  `CostPerUnit` float DEFAULT NULL,
+  `Sunset` tinyint(1) NOT NULL,
+  `SunsetPlan` varchar(500) DEFAULT NULL,
   `Notes` varchar(500) DEFAULT NULL,
   `NumberOfUnits` int DEFAULT NULL,
-  `ApprovedValue` double NOT NULL,
-  `ContractedValue` double DEFAULT NULL,
-  `ProcurementUrl` varchar(1000) CHARACTER SET utf16 COLLATE utf16_general_ci DEFAULT NULL,
-  `EmployeeName` varchar(100) CHARACTER SET utf16 COLLATE utf16_general_ci DEFAULT NULL,
-  `EmployeeAnnualSalary` double DEFAULT NULL,
-  `EmployeeAnnualBonus` double DEFAULT NULL,
-  `EmployeeAnnualBenefits` double DEFAULT NULL,
+  `ApprovedValue` float NOT NULL,
+  `ContractedValue` float DEFAULT NULL,
+  `ProcurementUrl` varchar(1000) DEFAULT NULL,
+  `EmployeeName` varchar(100) DEFAULT NULL,
+  `EmployeeAnnualSalary` float DEFAULT NULL,
+  `EmployeeAnnualBonus` float DEFAULT NULL,
+  `EmployeeAnnualBenefits` float DEFAULT NULL,
   `EmployeeTargetStartDate` date DEFAULT NULL,
   `TripName` varchar(100) DEFAULT NULL,
   `TripNumberOfPassengers` int DEFAULT NULL,
   `TrainingName` varchar(100) DEFAULT NULL,
   `TrainingNumberOfTrainees` int DEFAULT NULL,
+  `WithBreakdown` tinyint(1) DEFAULT '0',
+  `ApprovedJan` float DEFAULT NULL,
+  `ApprovedFeb` float DEFAULT NULL,
+  `ApprovedMar` float DEFAULT NULL,
+  `ApprovedApr` float DEFAULT NULL,
+  `ApprovedMay` float DEFAULT NULL,
+  `ApprovedJun` float DEFAULT NULL,
+  `ApprovedJul` float DEFAULT NULL,
+  `ApprovedAug` float DEFAULT NULL,
+  `ApprovedSep` float DEFAULT NULL,
+  `ApprovedOct` float DEFAULT NULL,
+  `ApprovedNov` float DEFAULT NULL,
+  `ApprovedDec` float DEFAULT NULL,
+  `ActualJan` float DEFAULT NULL,
+  `ActualFeb` float DEFAULT NULL,
+  `ActualMar` float DEFAULT NULL,
+  `ActualApr` float DEFAULT NULL,
+  `ActualMay` float DEFAULT NULL,
+  `ActualJun` float DEFAULT NULL,
+  `ActualJul` float DEFAULT NULL,
+  `ActualAug` float DEFAULT NULL,
+  `ActualSep` float DEFAULT NULL,
+  `ActualOct` float DEFAULT NULL,
+  `ActualNov` float DEFAULT NULL,
+  `ActualDec` float DEFAULT NULL,
+  `Renewal` date DEFAULT NULL,
   PRIMARY KEY (`ExpenseId`),
-  KEY `Expense_Organization_FK` (`OrganizationId`),
-  KEY `Expense_LicenseModel_FK` (`LicenseModelId`),
-  KEY `Expense_Groups_FK` (`GroupId`),
-  KEY `Expense_Accounts_FK` (`AccountId`),
-  KEY `Expense_Years_FK` (`YearId`),
-  KEY `Expense_Category_FK` (`CategoryId`),
-  CONSTRAINT `Expense_Accounts_FK` FOREIGN KEY (`AccountId`) REFERENCES `Accounts` (`AccountId`),
-  CONSTRAINT `Expense_Category_FK` FOREIGN KEY (`CategoryId`) REFERENCES `Category` (`CategoryId`),
-  CONSTRAINT `Expense_Groups_FK` FOREIGN KEY (`GroupId`) REFERENCES `Groups` (`GroupId`),
-  CONSTRAINT `Expense_Organization_FK` FOREIGN KEY (`OrganizationId`) REFERENCES `Organization` (`OrganizationId`),
-  CONSTRAINT `Expense_Years_FK` FOREIGN KEY (`YearId`) REFERENCES `Years` (`YearId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf16;
+  KEY `YearId` (`YearId`),
+  KEY `AccountId` (`AccountId`),
+  KEY `OrganizationId` (`OrganizationId`),
+  KEY `GroupId` (`GroupId`),
+  KEY `CategoryId` (`CategoryId`),
+  KEY `LicenseModelId` (`LicenseModelId`),
+  CONSTRAINT `Expense_ibfk_1` FOREIGN KEY (`YearId`) REFERENCES `Years` (`YearId`),
+  CONSTRAINT `Expense_ibfk_2` FOREIGN KEY (`AccountId`) REFERENCES `Accounts` (`AccountId`),
+  CONSTRAINT `Expense_ibfk_3` FOREIGN KEY (`OrganizationId`) REFERENCES `Organization` (`OrganizationId`),
+  CONSTRAINT `Expense_ibfk_4` FOREIGN KEY (`GroupId`) REFERENCES `Groups` (`GroupId`),
+  CONSTRAINT `Expense_ibfk_5` FOREIGN KEY (`CategoryId`) REFERENCES `Category` (`CategoryId`),
+  CONSTRAINT `Expense_ibfk_6` FOREIGN KEY (`LicenseModelId`) REFERENCES `LicenseModel` (`LicenseModelId`)
+) ENGINE=InnoDB AUTO_INCREMENT=120 DEFAULT CHARSET=utf16;
 
 
 -- licman.Licenses definition
 
 CREATE TABLE `Licenses` (
-  `LicenseId` int NOT NULL,
+  `LicenseId` int NOT NULL AUTO_INCREMENT,
   `EmployeeEmail` varchar(256) NOT NULL,
   `ExpenseId` int NOT NULL,
   PRIMARY KEY (`LicenseId`),
-  UNIQUE KEY `Licenses_UNIQUE` (`LicenseId`,`EmployeeEmail`),
-  KEY `Licenses_Expense_FK` (`ExpenseId`),
-  CONSTRAINT `Licenses_Expense_FK` FOREIGN KEY (`ExpenseId`) REFERENCES `Expense` (`ExpenseId`),
-  CONSTRAINT `Licenses_CHECK` CHECK ((`EmployeeEmail` like _utf16'\0%\0@\0a\0p\0p\0f\0i\0r\0e\0.\0c\0o\0m'))
+  KEY `ExpenseId` (`ExpenseId`),
+  CONSTRAINT `Licenses_ibfk_1` FOREIGN KEY (`ExpenseId`) REFERENCES `Expense` (`ExpenseId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16;
