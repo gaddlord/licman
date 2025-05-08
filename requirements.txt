@@ -1,6 +1,28 @@
+# Main application dependencies
 Flask==2.3.3
 Flask-SQLAlchemy==3.1.1
 pymysql==1.1.0
 python-dotenv==1.0.0
-cryptography==41.0.3
+cryptography==43.0.1
 reportlab==4.0.4
+
+# Authentication dependencies
+Authlib==1.2.1
+requests==2.31.0
+itsdangerous==2.1.2
+
+# Dependencies of dependencies (for completeness)
+blinker==1.9.0
+certifi==2025.4.26
+cffi==1.17.1
+charset-normalizer==3.4.2
+click==8.1.8
+idna==3.10
+Jinja2==3.1.6
+MarkupSafe==3.0.2
+pillow==11.2.1
+pycparser==2.22
+SQLAlchemy==2.0.40
+typing_extensions==4.13.2
+urllib3==2.4.0
+Werkzeug==3.1.3

@@ -11,9 +11,29 @@
 </head>
 <body>
     <div class="container mt-4">
-        <a href="{{ url_for('index') }}">
-            <img src="{{ url_for('static', filename='svg/logo.svg') }}" alt="Logo" style="height:40px;">
-        </a>
+        <div class="d-flex justify-content-between align-items-center">
+            <a href="{{ url_for('index') }}">
+                <img src="{{ url_for('static', filename='svg/logo.svg') }}" alt="Logo" style="height:40px;">
+            </a>
+            <div>
+                {% if g.user %}
+                <span class="me-3">Welcome, {{ g.user.name }}</span>
+                {% if not config.get('SKIP_AUTH', False) %}
+                    {% if config.get('USE_DEV_AUTH', True) %}
+                    <a href="{{ url_for('dev_auth.dev_logout') }}" class="btn btn-outline-danger">Logout</a>
+                    {% else %}
+                    <a href="{{ url_for('logout') }}" class="btn btn-outline-danger">Logout</a>
+                    {% endif %}
+                {% endif %}
+                {% else %}
+                {% if config.get('USE_DEV_AUTH', True) %}
+                <a href="{{ url_for('dev_auth.dev_login') }}" class="btn btn-primary">Login</a>
+                {% else %}
+                <a href="{{ url_for('login') }}" class="btn btn-primary">Login</a>
+                {% endif %}
+                {% endif %}
+            </div>
+        </div>
         <h1 class="mb-4 text-end">LicMan - FireOps Budget Tracker</h1>
         
         <!-- Filters Section -->

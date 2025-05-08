@@ -1,0 +1,12 @@
+{
+  "web": {
+    "client_id": "pingone_client_id",
+    "client_secret": "pingone_client_secret",
+    "auth_uri": "https://auth.pingone.com/YOUR-ENVIRONMENT-ID/as/authorize",
+    "token_uri": "https://auth.pingone.com/YOUR-ENVIRONMENT-ID/as/token",
+    "userinfo_uri": "https://auth.pingone.com/YOUR-ENVIRONMENT-ID/as/userinfo",
+    "redirect_uris": ["http://localhost:5000/callback"],
+    "issuer": "https://auth.pingone.com/YOUR-ENVIRONMENT-ID/as",
+    "token_endpoint_auth_method": "client_secret_post"
+  }
+}

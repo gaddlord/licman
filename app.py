@@ -1,6 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for, make_response
+from flask import Flask, render_template, request, redirect, url_for, make_response, g, session
 from models.models import db, Expense, Years, Organization, Category, Groups, LicenseModel, Accounts, AuditLog
 from utils.audit_logger import log_changes, log_create, log_delete
+# Use flexible authentication that can be bypassed with SKIP_AUTH env variable
+from flexible_auth import init_flexible_auth, flexible_login_required as login_required
 from dotenv import load_dotenv
 import os
 import datetime
@@ -34,12 +36,16 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Initialize SQLAlchemy with app
 db.init_app(app)
 
+# Initialize flexible authentication
+app = init_flexible_auth(app)
+
 # Custom Jinja2 filter for formatting numbers with apostrophe as thousand separator
 @app.template_filter('format_number')
 def format_number(value):
     return f"{value:,}".replace(",", "'")
 
 @app.route('/')
+@login_required
 def index():
     # Get all available filter options
     years = Years.query.all()
