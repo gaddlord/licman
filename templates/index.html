@@ -156,7 +156,7 @@
                                 {% endif %}
                                 <td>{{ expense.group.Name }}</td>
                                 <td class="text-end">${{ expense.CostPerUnit | round | int | format_number }}</td>
-                                <td class="text-end">{{ expense.NumberOfUnits }}</td>
+                                <td class="text-end">{% if expense.LicensedUsersUrl %}<a href="{{ expense.LicensedUsersUrl }}" target="_blank">{{ expense.NumberOfUnits }}</a>{% else %}{{ expense.NumberOfUnits }}{% endif %}</td>
                                 <td class="text-end">${{ expense.ApprovedValue | round | int | format_number }}</td>
                                 <td class="text-end">
                                     {% if expense.ProcurementUrl %}
